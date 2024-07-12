@@ -1,0 +1,10 @@
+Bazı node modülleri diğer taraftan aldım ekledim :D
+
+npm install react-hook-form
+npm install next-auth @next-auth/prisma-adapter @prisma/client
+
+direkt diger taraftan package.json'ı aldım auth-pro
+
+dev modda github ve google icin api linkleri degis gidip
+
+eğer importlarda anlamsız hata alınıyorsa package.lock.json ve ardından node-modules silinir
