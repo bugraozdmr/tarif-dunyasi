@@ -15,6 +15,8 @@ import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
 import { db } from "@/lib/db";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 
+import { AuthError } from "next-auth";
+
 export const login = async (
   values: z.infer<typeof LoginSchema>,
   callbackUrl?: string | null
@@ -111,30 +113,18 @@ export const login = async (
       password,
       redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
-  } catch (error : any) {
-    {
-      /*
-            if(error instanceof AuthError){
-            console.log(error.type)
-            switch(error.type){
-                case 'CredentialsSignin':
-                    return {error: 'Invalid credentials !'}
-                case 'CallbackRouteError':
-                    return {error: 'Check again !'}
-                default:
-                    return {error: 'Something went wrong !'}
-            }
-        }
-         */
-    }
-    console.log(error.type);
-    switch (error.type) {
-      case "CredentialsSignin":
-        return { error: "Invalid credentials !" };
-      case "CallbackRouteError":
-        return { error: "Check again !" };
-      default:
-        return { error: "Something went wrong !" };
+  } catch (error: any) {
+    // AuthError check edilmek zorunda
+    if (error instanceof AuthError) {
+      console.log(error.type);
+      switch (error.type) {
+        case "CredentialsSignin":
+          return { error: "Invalid credentials !" };
+        case "CallbackRouteError":
+          return { error: "Check again !" };
+        default:
+          return { error: "Something went wrong !" };
+      }
     }
 
     throw error;

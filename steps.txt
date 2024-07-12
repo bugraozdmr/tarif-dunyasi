@@ -8,3 +8,11 @@ direkt diger taraftan package.json'ı aldım auth-pro
 dev modda github ve google icin api linkleri degis gidip
 
 eğer importlarda anlamsız hata alınıyorsa package.lock.json ve ardından node-modules silinir
+
+// NEXT UI
+sudo npm install @nextui-org/react
+
+nextui dropdown sadece client side'da kullanılabiliyor ondan "use client" olmazsa olmuyor
+
+
+kendi kendine düzeldi NEXTUI hatası

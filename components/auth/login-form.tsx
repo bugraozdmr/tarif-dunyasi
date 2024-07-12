@@ -64,8 +64,7 @@ export function LoginForm() {
           if (data?.twoFactor) {
             setShowTwoFactor(true);
           }
-        })
-        .catch(() => setError("Something went wrong !"));
+        });
     });
   };
 
