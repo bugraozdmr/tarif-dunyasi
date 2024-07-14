@@ -7,6 +7,10 @@ import { Toaster } from "@/components/ui/sonner";
 import NavbarC from "@/components/nav-bar";
 import { NextUIProvider } from "@nextui-org/react";
 
+import { ModalProvider } from "../providers/modal-provider";
+import ToasterProvider from "../providers/toast-provider";
+
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -26,6 +30,8 @@ export default async function RootLayout({
         <Toaster />
         <body className={inter.className}>
           <NextUIProvider>
+            <ToasterProvider />
+            <ModalProvider />
             <NavbarC />
             {children}
           </NextUIProvider>

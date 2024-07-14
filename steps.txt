@@ -16,3 +16,6 @@ nextui dropdown sadece client side'da kullanılabiliyor ondan "use client" olmaz
 
 
 kendi kendine düzeldi NEXTUI hatası
+
+
+import React from "react"; baya bir şey çözdü :D

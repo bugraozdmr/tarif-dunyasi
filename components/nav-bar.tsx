@@ -26,6 +26,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { UserButton } from "./navbar/user-button";
+import { Categories } from "@/categoryData";
 
 export default function NavbarC() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -33,6 +34,10 @@ export default function NavbarC() {
   const router = useRouter();
 
   const path = usePathname();
+
+  // CATEGORY DATA
+  const categories = Categories;
+
 
   return (
     <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
@@ -67,71 +72,22 @@ export default function NavbarC() {
                 base: "gap-4",
               }}
             >
-              <DropdownItem
+              {categories.map((category) => (
+                <DropdownItem
+                onClick={() => router.push(`/c/${category.slug}`)}
                 key="autoscaling"
-                description="Açıklama yazılcak"
+                description={category.description}
                 startContent={
-                  <ScaleIcon
-                    className="text-warning"
+                  <category.icon
+                    className="text-amber-900"
                     fill="currentColor"
                     size={30}
                   />
                 }
               >
-                Autoscaling
+                {category.name}
               </DropdownItem>
-              <DropdownItem
-                key="usage_metrics"
-                description="Real-time metrics to debug issues. Slow query added? We’ll show you exactly where."
-                startContent={
-                  <LockIcon
-                    className="text-success"
-                    fill="currentColor"
-                    size={30}
-                  />
-                }
-              >
-                Usage Metrics
-              </DropdownItem>
-              <DropdownItem
-                key="production_ready"
-                description="ACME runs on ACME, join us and others serving requests at web scale."
-                startContent={
-                  <LockIcon
-                    className="text-success"
-                    fill="currentColor"
-                    size={30}
-                  />
-                }
-              >
-                Production Ready
-              </DropdownItem>
-              <DropdownItem
-                key="99_uptime"
-                description="Applications stay on the grid with high availability and high uptime guarantees."
-                startContent={
-                  <LockIcon
-                    className="text-success"
-                    fill="currentColor"
-                    size={30}
-                  />
-                }
-              >
-                +99% Uptime
-              </DropdownItem>
-              <DropdownItem
-                key="supreme_support"
-                description="Overcome any challenge with a supporting team ready to respond."
-                startContent={
-                  <LockIcon
-                    className="text-success"
-                    fill="currentColor"
-                    size={30}
-                  />
-                }
-              >
-                +Supreme Support
-              </DropdownItem>
+              ))}
             </DropdownMenu>
           </Dropdown>
 
