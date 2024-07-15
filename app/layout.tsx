@@ -10,6 +10,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import { ModalProvider } from "../providers/modal-provider";
 import ToasterProvider from "../providers/toast-provider";
 
+import Container from "@/components/ui/container";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,7 +34,9 @@ export default async function RootLayout({
             <ToasterProvider />
             <ModalProvider />
             <NavbarC />
-            {children}
+            <Container>
+              {children}
+            </Container>
           </NextUIProvider>
         </body>
       </html>

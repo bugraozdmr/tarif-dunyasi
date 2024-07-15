@@ -11,7 +11,7 @@ import { Info } from "../info";
 
 export const PreviewModal = () => {
     const PreviewModal = usePreviewModal();
-    const product = usePreviewModal((state) => state.data);
+    const product = usePreviewModal((state) => state.data);
 
     if(!product){
         return null;

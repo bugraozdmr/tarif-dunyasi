@@ -17,8 +17,6 @@ import {
 import {
   ChefHat,
   ChevronDownIcon,
-  LockIcon,
-  ScaleIcon,
   SearchIcon,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
@@ -27,6 +25,7 @@ import Link from "next/link";
 
 import { UserButton } from "./navbar/user-button";
 import { Categories } from "@/categoryData";
+import { getIconComponent } from "@/lib/iconMap";
 
 export default function NavbarC() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -37,7 +36,6 @@ export default function NavbarC() {
 
   // CATEGORY DATA
   const categories = Categories;
-
 
   return (
     <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
@@ -72,22 +70,28 @@ export default function NavbarC() {
                 base: "gap-4",
               }}
             >
-              {categories.map((category) => (
-                <DropdownItem
-                onClick={() => router.push(`/c/${category.slug}`)}
-                key="autoscaling"
-                description={category.description}
-                startContent={
-                  <category.icon
-                    className="text-amber-900"
-                    fill="currentColor"
-                    size={30}
-                  />
-                }
-              >
-                {category.name}
-              </DropdownItem>
-              ))}
+              {categories.map((category) => {
+                const IconComponent = getIconComponent(category.icon);
+
+                return (
+                  <DropdownItem
+                    onClick={() => router.push(`/c/${category.slug}`)}
+                    key="autoscaling"
+                    description={category.description}
+                    startContent={
+                      IconComponent && (
+                        <IconComponent
+                          className="text-indigo-500"
+                          fill="currentColor"
+                          size={30}
+                        />
+                      )
+                    }
+                  >
+                    {category.name}
+                  </DropdownItem>
+                );
+              })}
             </DropdownMenu>
           </Dropdown>
 

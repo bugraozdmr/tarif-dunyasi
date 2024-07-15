@@ -1,6 +1,3 @@
-import { LucideIcon } from 'lucide-react';
-
-
 
 export interface Billboard {
   label: string;
@@ -29,5 +26,6 @@ export interface Category {
   name: string;
   description : string;
   slug: string;
-  icon: LucideIcon;
+  // nedeni categoryData'da
+  icon: string;
 }

@@ -1,8 +1,11 @@
+import AddRecipeButton from "@/components/add-recipe-button";
 import React from "react";
 
 const CategoryRecipePage = () => {
-    return ( 
+    return (
         <div>
+            <AddRecipeButton />
+
             Cat
         </div>
      );

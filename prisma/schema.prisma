@@ -100,11 +100,12 @@ model Recipe {
   userId      String
   user      User  @relation("RecipeToUser",fields: [userId],references: [id])
 
-  isFeatured  Boolean @default(false)
   categoryId  Int
   //category    Category  @relation("CategoryToRecipe",fields: [categoryId],references: [id])
   images      Image[]
-  
+
+  slug        String @unique
+  description String
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
