@@ -151,7 +151,12 @@ export async function GET(
       },
       include: {
         images: true,
-        user: true,
+        user: {
+          select : {
+            name : true,
+            image : true
+          }
+        },
       },
     });
 
