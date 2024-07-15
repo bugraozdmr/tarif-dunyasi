@@ -10,11 +10,11 @@ export const ErrorCard = () => {
     return (
         <Card className="w-[400px] shadow-md">
             <CardHeader>
-                <Header label="Oops! Something went wrong !" />
+                <Header label="Oops! Bir şeyler ters gitti !" />
             </CardHeader>
             <CardFooter>
                 <BackButton
-                label="Back to login"
+                label="Giriş ekranına geri dön"
                 href="/auth/login"
                 />
             </CardFooter>

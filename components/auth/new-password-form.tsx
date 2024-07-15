@@ -58,8 +58,8 @@ export function NewPasswordForm() {
 
   return (
     <CardWrapper
-    headerLabel='Enter a new password'
-    backButtonLabel="Back to login"
+    headerLabel='Yeni bir şifre gir'
+    backButtonLabel="Giriş ekranına geri dön"
     backButtonHref='/auth/login'
     showSocial={false}>
         <Form {...form}>
@@ -74,7 +74,7 @@ export function NewPasswordForm() {
                     name='password'
                     render={({field}) => (
                         <FormItem>
-                            <FormLabel>Password</FormLabel>
+                            <FormLabel>Şifre</FormLabel>
                             <FormControl>
                                 <Input 
                                     {...field}
@@ -96,7 +96,7 @@ export function NewPasswordForm() {
                 type='submit'
                 className='w-full'
                 disabled={isPending}>
-                    Reset password
+                    Şifreyi sıfırla
                 </Button>
             </form>
         </Form>

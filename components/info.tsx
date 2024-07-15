@@ -20,6 +20,7 @@ import { Avatar } from "@nextui-org/avatar";
 import { usePathname } from "next/navigation";
 import { Textarea } from "@nextui-org/react";
 import CommentCard from "./comments/comment-card";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 interface InfoProps {
   data: Recipe;
@@ -33,6 +34,9 @@ export const Info: React.FC<InfoProps> = ({ data }) => {
 
   // Get Category
   const category = GetCategory(data?.categoryId);
+
+  // USER
+  const user = useCurrentUser();
 
   return (
     <div>
@@ -98,7 +102,8 @@ export const Info: React.FC<InfoProps> = ({ data }) => {
           <hr className="mt-6" />
           <div className="flex flex-col gap-x-4 mt-5">
             <h3 className="font-semibold text-black text-2xl">Yorumlar (0)</h3>
-            <Textarea
+            {user && (
+              <Textarea
               label="Yorum Yaz"
               variant="bordered"
               placeholder="Düşüncelerini belirt"
@@ -109,6 +114,7 @@ export const Info: React.FC<InfoProps> = ({ data }) => {
                 input: "resize-y min-h-[60px]",
               }}
             />
+            )}
             {/* COMMENT SECTION */}
             <div className="mt-2">
               <CommentCard />

@@ -19,7 +19,7 @@ export const Header = ({
                 "text-3xl font-semibold",
                 font.className
             )}>
-                🗝️ Auth
+                Tarif Dünyası 🥣
             </h1>
             <p className="text-muted-foreground text-sm">
                 {label}

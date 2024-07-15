@@ -43,9 +43,9 @@ export const NewVerificationForm = () => {
 
     return (
       <CardWrapper
-        headerLabel="Confirming your verification"
+        headerLabel="Kontrol ediliyor"
         backButtonHref="/auth/login"
-        backButtonLabel="Back to login"
+        backButtonLabel="Giriş ekranına geri dön"
         showSocial={false}
       >
         <div className="flex items-center w-full justify-center">

@@ -55,8 +55,8 @@ export function ResetForm() {
 
   return (
     <CardWrapper
-    headerLabel='Forgot your password ?'
-    backButtonLabel="Back to login"
+    headerLabel='Şifreni mi unuttun ?'
+    backButtonLabel="Giriş ekranına geri dön"
     backButtonHref='/auth/login'
     showSocial={false}>
         <Form {...form}>
@@ -75,7 +75,7 @@ export function ResetForm() {
                             <FormControl>
                                 <Input 
                                     {...field}
-                                    placeholder='john.doe@example.com'
+                                    placeholder='grant.alemdar@example.com'
                                     type='email'
                                     disabled={isPending}
                                 />
@@ -93,7 +93,7 @@ export function ResetForm() {
                 type='submit'
                 className='w-full'
                 disabled={isPending}>
-                    Send reset email
+                    Şifre yenileme maili yolla
                 </Button>
             </form>
         </Form>

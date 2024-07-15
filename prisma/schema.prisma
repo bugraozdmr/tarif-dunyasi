@@ -30,6 +30,7 @@ model User {
   isTwoFactorEnabled    Boolean @default(false)
 
   recipes    Recipe[] @relation("RecipeToUser")
+  comments    Comment[] @relation("CommentToUser")
 
   // eslendi
   twoFactorConfirmation   TwoFactorConfirmation?
@@ -104,6 +105,10 @@ model Recipe {
   //category    Category  @relation("CategoryToRecipe",fields: [categoryId],references: [id])
   images      Image[]
 
+  // TODO ingredients
+  ingredients  String
+  comments    Comment[]
+
   slug        String @unique
   description String
 
@@ -119,7 +124,7 @@ model Recipe {
 model Image{
   id          String @id @default(uuid())
   recipeId   String
-  product     Recipe @relation(fields: [recipeId],references: [id],onDelete: Cascade)
+  recipe     Recipe @relation(fields: [recipeId],references: [id],onDelete: Cascade)
   url         String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -129,3 +134,20 @@ model Image{
 
 
 // categoryLer sınırlı oldugu icin ekeleme static olcaks
+
+model Comment {
+  id          String @id @default(uuid())
+  
+  recipeId   String
+  recipe     Recipe @relation(fields: [recipeId],references: [id],onDelete: Cascade)
+  
+  userId      String
+  user      User  @relation("CommentToUser",fields: [userId],references: [id])
+
+  text      String
+
+  createdAt   DateTime @default(now())
+
+  @@index([recipeId])
+  @@index([userId])
+}

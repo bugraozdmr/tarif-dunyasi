@@ -22,3 +22,4 @@ import React from "react"; baya bir şey çözdü :D
 
 
 Comment section and navbar still waits --- navbar opener
+DOKUMANTASYON

@@ -70,8 +70,8 @@ export function LoginForm() {
 
   return (
     <CardWrapper
-      headerLabel="Welcome back"
-      backButtonLabel="Don't have an account"
+      headerLabel="Yeniden hoşgeldiniz"
+      backButtonLabel="Hesabın yok mu ?"
       backButtonHref="/auth/register"
       showSocial={true}
     >
@@ -86,7 +86,7 @@ export function LoginForm() {
                   name="code"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Two Factor Code</FormLabel>
+                      <FormLabel>İki aşamalı doğrulama kodu</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
@@ -127,7 +127,7 @@ export function LoginForm() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>Şifre</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
@@ -142,7 +142,7 @@ export function LoginForm() {
                         asChild
                         className="px-0 font-normal"
                       >
-                        <Link href="/auth/reset">Forgot Password ?</Link>
+                        <Link href="/auth/reset">Şifreni mi unuttun ?</Link>
                       </Button>
                       <FormMessage />
                     </FormItem>
@@ -156,7 +156,7 @@ export function LoginForm() {
           <FormSuccess message={success} />
 
           <Button type="submit" className="w-full" disabled={isPending}>
-            {showTwoFactor ? 'Confirm' : 'Login'}
+            {showTwoFactor ? 'Onayla' : 'Giriş yap'}
           </Button>
         </form>
       </Form>

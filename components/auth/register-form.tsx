@@ -51,8 +51,8 @@ export function RegisterForm() {
 
   return (
     <CardWrapper
-    headerLabel='Create an account'
-    backButtonLabel="Already having an account ?"
+    headerLabel='Hesap Oluştur'
+    backButtonLabel="Zaten hesabın var mı ?"
     backButtonHref='/auth/login'
     showSocial={true}>
         <Form {...form}>
@@ -67,11 +67,11 @@ export function RegisterForm() {
                     name='name'
                     render={({field}) => (
                         <FormItem>
-                            <FormLabel>Name</FormLabel>
+                            <FormLabel>İsim</FormLabel>
                             <FormControl>
                                 <Input 
                                     {...field}
-                                    placeholder='John Doe'
+                                    placeholder='Grant Alemdar'
                                     type='text'
                                     disabled={isPending}
                                 />
@@ -90,7 +90,7 @@ export function RegisterForm() {
                             <FormControl>
                                 <Input 
                                     {...field}
-                                    placeholder='john.doe@example.com'
+                                    placeholder='grant.alemdar@example.com'
                                     type='email'
                                     disabled={isPending}
                                 />
@@ -105,7 +105,7 @@ export function RegisterForm() {
                     name='password'
                     render={({field}) => (
                         <FormItem>
-                            <FormLabel>Password</FormLabel>
+                            <FormLabel>Şifre</FormLabel>
                             <FormControl>
                                 <Input 
                                     {...field}
@@ -127,7 +127,7 @@ export function RegisterForm() {
                 type='submit'
                 className='w-full'
                 disabled={isPending}>
-                    Register
+                    Kayıt Ol
                 </Button>
             </form>
         </Form>
