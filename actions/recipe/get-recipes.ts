@@ -4,14 +4,14 @@ import qs from 'query-string'
 const URL = `${process.env.NEXT_PUBLIC_APP_URL}/api/recipes`;
 
 interface Query{
-    categoryId? : string;
+    category? : string;
 }
 
 const getRecipes = async (query? : Query) : Promise<Recipe[]> => {
     const url = qs.stringifyUrl({
         url : URL,
         query : {
-            categoryId : query?.categoryId,
+            category : query?.category,
         },
     });
 

@@ -1,3 +1,4 @@
+import { GetCategory, GetCategoryBySlug } from "@/data/get-category-name";
 import { generateSlug } from "@/helpers/slug-generator";
 import { currentUser } from "@/lib/auth";
 import prismadb from "@/lib/prismadb";
@@ -33,7 +34,6 @@ export async function POST(req: Request) {
       return new NextResponse("Category id is required", { status: 400 });
     }
 
-    console.log(userId)
 
     const userByUserId = await prismadb.user.findFirst({
       where: {
@@ -48,7 +48,6 @@ export async function POST(req: Request) {
     // creating slug
     const slug = generateSlug(name);
 
-    console.log(`${slug} ${userId} ${name} ${realCatId} ${typeof realCatId}`);
 
     // ayni ismi vermek onemli Images
     const recipe = await prismadb.recipe.create({
@@ -78,15 +77,17 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
 
-    const categoryId = searchParams.get("categoryId") || undefined;
-
-    const realCatId = categoryId ? parseInt(categoryId, 10) : undefined;
+    const categorySlug = searchParams.get("category") || undefined;
 
     // varsa filtereleyip getirir yoksa hic yokmus gibi davranir -- Undefined ise yani
     // include sorun olmasın diye select kullandık
+
+    const category = GetCategoryBySlug(categorySlug);
+
+
     const recipes = await prismadb.recipe.findMany({
       where: {
-        categoryId: realCatId,
+        categoryId: category?.id,
       },
       select: {
         name: true,

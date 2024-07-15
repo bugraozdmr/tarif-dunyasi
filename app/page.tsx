@@ -4,7 +4,7 @@ import SogukBaklava from "@/public/soguk-baklava.jpg";
 
 import { RecipeList } from "@/components/recipe-list";
 import AddRecipeButton from "@/components/add-recipe-button";
-import getRecipes from "@/actions/product/get-recipes";
+import getRecipes from "@/actions/recipe/get-recipes";
 
 const HomePage = async () => {
   const billboard = {

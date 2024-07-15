@@ -8,3 +8,11 @@ export const GetCategory = (id : number) => {
 
     return cat;
 }
+
+export const GetCategoryBySlug = (slug : string | undefined) => {
+    const categories = Categories;
+
+    const cat =  categories.find((c) => c.slug === slug);
+
+    return cat;
+}

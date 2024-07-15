@@ -14,11 +14,7 @@ import {
   Button,
 } from "@nextui-org/react";
 
-import {
-  ChefHat,
-  ChevronDownIcon,
-  SearchIcon,
-} from "lucide-react";
+import { ChefHat, ChevronDownIcon, SearchIcon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
 import Link from "next/link";
@@ -36,6 +32,15 @@ export default function NavbarC() {
 
   // CATEGORY DATA
   const categories = Categories;
+
+  // CATEGORY COLORS -- NOT THE BEST BUT STILL WORKS
+  const colors = [
+    "text-indigo-500",
+    "text-red-700",
+    "text-yellow-500",
+    "text-amber-800",
+    "text-gray-700",
+  ];
 
   return (
     <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
@@ -70,18 +75,17 @@ export default function NavbarC() {
                 base: "gap-4",
               }}
             >
-              {categories.map((category) => {
+              {categories.map((category,index) => {
                 const IconComponent = getIconComponent(category.icon);
-
                 return (
                   <DropdownItem
                     onClick={() => router.push(`/c/${category.slug}`)}
-                    key="autoscaling"
+                    key={category.id}
                     description={category.description}
                     startContent={
                       IconComponent && (
                         <IconComponent
-                          className="text-indigo-500"
+                          className={colors[index]}
                           fill="currentColor"
                           size={30}
                         />
@@ -95,9 +99,9 @@ export default function NavbarC() {
             </DropdownMenu>
           </Dropdown>
 
-          <NavbarItem isActive={path === "/iletisim" ? true : false}>
-            <Link href="/iletisim" aria-current="page">
-              İletişim
+          <NavbarItem isActive={path === "/dokumantasyon" ? true : false}>
+            <Link href="/dokumantasyon" aria-current="page">
+              Dökümantasyon
             </Link>
           </NavbarItem>
         </NavbarContent>
