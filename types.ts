@@ -8,9 +8,9 @@ export interface Billboard {
 export interface Recipe {
   id: string;
   name: string;
-  // degisir
-  userId: string;
-  Category: Category;
+  user : User;
+  categoryId : number;
+  description : string;
   images: Image[];
   createdAt: Date;
   slug : string;
@@ -28,4 +28,11 @@ export interface Category {
   slug: string;
   // nedeni categoryData'da
   icon: string;
+}
+
+
+export interface User {
+  id: string;
+  name: string;
+  image : string;
 }

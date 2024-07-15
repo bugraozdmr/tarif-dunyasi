@@ -83,17 +83,38 @@ export async function GET(req: Request) {
     const realCatId = categoryId ? parseInt(categoryId, 10) : undefined;
 
     // varsa filtereleyip getirir yoksa hic yokmus gibi davranir -- Undefined ise yani
+    // include sorun olmasın diye select kullandık
     const recipes = await prismadb.recipe.findMany({
       where: {
         categoryId: realCatId,
       },
-      include: {
-        images: true,
+      select: {
+        name: true,
+        categoryId: true,
+        slug: true,
+        description: true,
+        createdAt: true,
+        images: {
+          select: {
+            id: true,
+            recipeId: true,
+            url: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        },
+        user: {
+          select: {
+            name: true,
+            image: true,
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",
       },
     });
+    
 
     return NextResponse.json(recipes);
   } catch (error) {

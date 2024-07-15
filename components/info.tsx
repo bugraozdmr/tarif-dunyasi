@@ -12,6 +12,12 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
 } from "react-share";
+import { GetCategory } from "@/data/get-category-name";
+import { formatCreatedAt } from "@/helpers/format-time";
+
+// Avatar burdan import edilmezse hata alıyor
+import { Avatar } from "@nextui-org/avatar";
+
 
 interface InfoProps {
   data: Recipe;
@@ -20,22 +26,31 @@ interface InfoProps {
 export const Info: React.FC<InfoProps> = ({ data }) => {
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/${data.slug}`;
 
+  // Get Category
+  const category = GetCategory(data?.categoryId);
+
   return (
     <div>
       <h1 className="text-3xl font-bold text-gray-900">{data.name}</h1>
       <div className="mt-3 flex items-end justify-between">
-        <p className="text-2xl text-gray-900">TODO</p>
+        <p className="text-2xl text-gray-900">{category?.name}</p>
       </div>
       <hr className="my-4" />
       <div className="flex flex-col gap-y-6">
         <div className="flex items-center gap-x-4">
-          <h3 className="font-semibold text-black">Size :</h3>
-          <div>TODO</div>
+          <h3 className="font-semibold text-black">Oluşturuldu</h3>
+          <div>{formatCreatedAt(data.createdAt)}</div>
         </div>
         <div className="flex items-center gap-x-4">
-          <h3 className="font-semibold text-black">Color :</h3>
-          <div>TODO</div>
+        <Avatar
+        isBordered
+        color="secondary"
+        src={data.user?.image}
+        size="md"
+        />
+        <p className="text-gray-600 text-medium">{data.user?.name}</p>
         </div>
+        
       </div>
       <div className="mt-10 flex gap-x-3 flex-col">
         <p className="text-xl mb-2">Paylaş</p>

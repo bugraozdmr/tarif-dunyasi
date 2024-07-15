@@ -26,7 +26,7 @@ export const authRoutes = [
 ]
 
 export const hiddenRoutes = [
-    "/tarif/new",
+    "/tarif/yeni",
 ]
 
 

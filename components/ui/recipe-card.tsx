@@ -8,10 +8,11 @@ import toast from "react-hot-toast";
 import { Recipe } from "../../types";
 import Image from "next/image";
 import { IconButton } from "./icon-button";
-import { Copy, Expand } from "lucide-react";
+import { Clipboard, Expand } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { MouseEventHandler } from "react";
 import usePreviewModal from "../../hooks/use-preview-modal";
+import { GetCategory } from "@/data/get-category-name";
 
 interface RecipeCardProps {
   data: Recipe;
@@ -31,13 +32,14 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ data }) => {
     previewModal.onOpen(data);
   }
 
-  // emin degilim duzeltme gerekir
-  const onCopy = (link: string): MouseEventHandler<HTMLButtonElement> => (event) => {
+  const onCopy : MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
-    navigator.clipboard.writeText(link);
-    toast.success("Copied to the clipboard");
+    navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_APP_URL}/${data.slug}`);
+    toast.success("Panoya kopyalandı");
   };
-  
+
+  // Get Category
+  const category = GetCategory(data?.categoryId);
 
   return (
     <div
@@ -59,8 +61,8 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ data }) => {
               icon={<Expand size={20} className="text-gray-600" />}
             />
             <IconButton
-              onClick={() => onCopy(data?.slug)}
-              icon={<Copy size={20} className="text-gray-600" />}
+              onClick={onCopy}
+              icon={<Clipboard size={20} className="text-gray-600" />}
             />
           </div>
         </div>
@@ -68,11 +70,11 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ data }) => {
       {/* Description */}
       <div>
         <p className="font-semibold text-lg">{data.name}</p>
-        <p className="font-semibold text-gray-500">{data.Category?.name}</p>
+        <p className="font-semibold text-gray-500">{category?.name}</p>
       </div>
       {/* TODO */}
       <div className="flex items-center justify-between">
-        TODO
+      TODO YORUM SAYISI
       </div>
     </div>
   );
