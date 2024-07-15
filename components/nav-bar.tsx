@@ -59,7 +59,7 @@ export default function NavbarC() {
                   radius="sm"
                   variant="light"
                 >
-                  Features
+                  Kategoriler
                 </Button>
               </DropdownTrigger>
             </NavbarItem>

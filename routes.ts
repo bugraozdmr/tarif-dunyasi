@@ -4,10 +4,12 @@
     * @type {string[]}
 */
 
+/* GEREKSIZ SUAN
 export const publicRoutes = [
-    "/",
+    "/*",
     "/auth/new-verification",
 ]
+*/
 
 /**
     *Accessible routes related with login things
@@ -23,6 +25,9 @@ export const authRoutes = [
     "/auth/new-password",
 ]
 
+export const hiddenRoutes = [
+    "/tarif/new",
+]
 
 
 /**

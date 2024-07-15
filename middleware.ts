@@ -4,7 +4,7 @@ import {
     DEFAULT_LOGIN_REDIRECT,
     apiAuthPrefix,
     authRoutes,
-    publicRoutes
+    hiddenRoutes,
 } from './routes'
 
 const {auth} = NextAuth(authConfig);
@@ -14,11 +14,13 @@ const {auth} = NextAuth(authConfig);
 // uyandirilmasi icin config verildi belirli yerde gelir
 export default auth((req:any) => {
     const {nextUrl} = req;
+
     const isLoggedIn = !!req.auth;
 
     const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
 
-    const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+    //const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+    const isHiddenRoute = hiddenRoutes.includes(nextUrl.pathname);
 
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
@@ -35,7 +37,8 @@ export default auth((req:any) => {
         return ;
     }
 
-    if(!isLoggedIn && !isPublicRoute){
+    // TODO DUZENLE 00 !isLoggedIn && !isPublicRoute
+    if(!isLoggedIn && isHiddenRoute){
         let callbackUrl = nextUrl.pathname;
         if(nextUrl.search){
             callbackUrl += nextUrl.search;
