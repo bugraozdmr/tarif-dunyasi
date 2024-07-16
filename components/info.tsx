@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import { Comment, Recipe } from "../types";
 
@@ -22,6 +22,10 @@ import { CommentCard } from "./comments/comment-card";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import CommentForm from "./comments/comment-form";
 import { Button } from "./ui/button";
+import { Edit, Trash } from "lucide-react";
+import axios from "axios";
+import { toast } from "sonner";
+import { AlertModal } from "./modals/alert-modal";
 
 interface InfoProps {
   data: Recipe;
@@ -34,6 +38,10 @@ export const Info: React.FC<InfoProps> = ({
   comment_count,
   comments,
 }) => {
+  // Modal Checker
+  const [open, setOpen] = useState(false);
+  const [pending, setPending] = useState(false);
+
   const router = useRouter();
 
   // KONTROL AMACLI DESC
@@ -51,8 +59,53 @@ export const Info: React.FC<InfoProps> = ({
   data.description = data.description.replace(/\n/g, "<br />");
   data.ingredients = data.ingredients.replace(/\n/g, "<br />");
 
+  // eğer böyle fonk içindeyse client ile beraber kullanılabiliyor server işi şeyler
+  const onDelete = async () => {
+    try {
+      setPending(true);
+      await axios.delete(`/api/recipes/${data.slug}`);
+      router.push(`/`);
+      router.refresh();
+      toast.success("Tarif silindi.");
+    } catch (error) {
+      console.log(error);
+      toast.error("Bir şeyler ters gitti");
+    } finally {
+      setPending(false);
+      setOpen(false);
+    }
+  };
+
   return (
     <div>
+      {/* ALERT MODAL BURDA DURACAK */}
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={onDelete}
+        loading={pending}
+      />
+
+      {pathname === `/${data.slug}` && (
+        <div className="flex flex-row justify-center mx-5 mb-8">
+          <Button
+            variant="destructive"
+            onClick={() => setOpen(true)}
+            disabled={pending}
+          >
+            <Trash />
+          </Button>
+          <Button
+            variant="secondary"
+            className="ml-4"
+            disabled={pending}
+            onClick={() => router.push(`/tarif/${data.slug}`)}
+          >
+            <Edit />
+          </Button>
+        </div>
+      )}
+
       <h1 className="text-3xl font-bold text-gray-900">{data.name}</h1>
       <div className="mt-3 flex items-end justify-between">
         <p className="text-2xl text-gray-900">{category?.name}</p>

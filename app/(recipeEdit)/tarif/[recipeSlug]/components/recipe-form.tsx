@@ -160,7 +160,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
             name="images"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Resimler</FormLabel>
+                <FormLabel className="text-lg">Resimler</FormLabel>
                 <FormControl>
                   <ImageUpload
                     value={field.value?.map((image) => image.url)}

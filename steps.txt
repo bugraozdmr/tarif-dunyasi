@@ -22,8 +22,8 @@ import React from "react"; baya bir şey çözdü :D
 
 
 Comment section and navbar still waits --- navbar opener
-DOKUMANTASYON
-RESİM KONTROL ET AMK .png vs boyut
+DOKUMANTASYON DONE
+RESİM KONTROL ET AMK .png vs boyut !!!!!!!!!!!!!!!!
 ADMIN SILME DUZENLEME YAPCAK
 
 LOading küçük harfle başlar !!!
