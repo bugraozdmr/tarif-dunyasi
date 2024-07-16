@@ -11,6 +11,7 @@ import { ModalProvider } from "../providers/modal-provider";
 import ToasterProvider from "../providers/toast-provider";
 
 import Container from "@/components/ui/container";
+import Footer from "@/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,6 +37,7 @@ export default async function RootLayout({
             <NavbarC />
             <Container>
               {children}
+              <Footer />
             </Container>
           </NextUIProvider>
         </body>
