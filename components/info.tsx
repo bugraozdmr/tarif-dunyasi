@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import { Recipe } from "../types";
 
@@ -18,15 +18,18 @@ import { formatCreatedAt } from "@/helpers/format-time";
 // Avatar burdan import edilmezse hata alıyor
 import { Avatar } from "@nextui-org/avatar";
 import { usePathname } from "next/navigation";
-import { Textarea } from "@nextui-org/react";
+import { Button, Textarea } from "@nextui-org/react";
 import CommentCard from "./comments/comment-card";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import { SendIcon } from "lucide-react";
 
 interface InfoProps {
   data: Recipe;
 }
 
 export const Info: React.FC<InfoProps> = ({ data }) => {
+  const [isSending, setIsSending] = useState(false);
+
   // KONTROL AMACLI DESC
   const pathname = usePathname();
 
@@ -37,6 +40,10 @@ export const Info: React.FC<InfoProps> = ({ data }) => {
 
   // USER
   const user = useCurrentUser();
+
+  // replacing instructions and recipes
+  data.description = data.description.replace(/\n/g, "<br />");
+  data.ingredients = data.ingredients.replace(/\n/g, "<br />");
 
   return (
     <div>
@@ -61,8 +68,26 @@ export const Info: React.FC<InfoProps> = ({ data }) => {
         </div>
         {pathname === `/${data.slug}` && (
           <div className="flex flex-col gap-x-4">
+            <h3 className="font-semibold text-black">İçindekiler</h3>
+            <div>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: data.ingredients,
+                }}
+              ></p>
+            </div>
+          </div>
+        )}
+        {pathname === `/${data.slug}` && (
+          <div className="flex flex-col gap-x-4">
             <h3 className="font-semibold text-black">Hazırlanışı</h3>
-            <div>{data.description}</div>
+            <div>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: data.description,
+                }}
+              ></p>
+            </div>
           </div>
         )}
       </div>
@@ -101,22 +126,46 @@ export const Info: React.FC<InfoProps> = ({ data }) => {
         <>
           <hr className="mt-6" />
           <div className="flex flex-col gap-x-4 mt-5">
-            <h3 className="font-semibold text-black text-2xl">Yorumlar (0)</h3>
+            <h3 className="font-semibold text-black text-2xl mb-2">
+              Yorumlar (0)
+            </h3>
             {user && (
-              <Textarea
-              label="Yorum Yaz"
-              variant="bordered"
-              placeholder="Düşüncelerini belirt"
-              disableAnimation
-              disableAutosize
-              classNames={{
-                base: "w-full",
-                input: "resize-y min-h-[60px]",
-              }}
-            />
+              <>
+                <Textarea
+                  label="Yorum Yaz"
+                  variant="bordered"
+                  placeholder="Tarif hakkında düşüncelerini belirt"
+                  disableAnimation
+                  disableAutosize
+                  classNames={{
+                    base: "w-full",
+                    input: "resize-y min-h-[60px]",
+                  }}
+                />
+                {isSending ? (
+                  <Button
+                    color="primary"
+                    className="mt-1.5"
+                    variant="bordered"
+                    isLoading
+                  >
+                    <span className="text-lg">Gönderiliyor</span>
+                  </Button>
+                ) : (
+                  <Button
+                    color="primary"
+                    className="mt-1.5"
+                    variant="bordered"
+                    onClick={() => setIsSending(true)}
+                  >
+                    <span className="text-lg">Gönder</span> <SendIcon />
+                  </Button>
+                )}
+              </>
             )}
             {/* COMMENT SECTION */}
             <div className="mt-2">
+              {/* AVATARDAN HATA ALIYOR */}
               <CommentCard />
             </div>
           </div>

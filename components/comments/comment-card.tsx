@@ -16,7 +16,7 @@ export default function CommentCard() {
       </CardHeader>
       <CardBody className="px-3 py-0 text-small text-default-400">
         <p>
-          DATA gelcek
+        AVATARDAN HATA ALIYOR
         </p>
       </CardBody>
       <CardFooter className="gap-3">

@@ -61,6 +61,13 @@ const Loading = () => {
                       <Skeleton className="h-3 w-4/5 mt-1 rounded-lg" />
                       <Skeleton className="h-3 w-4/5 mt-1 rounded-lg" />
                     </div>
+                    <div className="flex flex-col gap-x-4">
+                      <Skeleton className="h-3 w-2/5 rounded-lg" />
+
+                      <Skeleton className="h-3 w-4/5 mt-3 rounded-lg" />
+                      <Skeleton className="h-3 w-4/5 mt-1 rounded-lg" />
+                      <Skeleton className="h-3 w-4/5 mt-1 rounded-lg" />
+                    </div>
                   </div>
 
                   <hr className="mt-6" />

@@ -10,6 +10,7 @@ export interface Recipe {
   name: string;
   user : User;
   categoryId : number;
+  ingredients : string;
   description : string;
   images: Image[];
   createdAt: Date;

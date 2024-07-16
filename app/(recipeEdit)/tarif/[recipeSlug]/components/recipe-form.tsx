@@ -52,7 +52,7 @@ const formSchema = z.object({
   images: z.object({ url: z.string() }).array(),
   categoryId: z.union([z.number(), z.string()]),
   description: z.string().min(1).max(1000),
-  ingredients: z.string().min(1).max(400),
+  ingredients: z.string().min(1).max(500),
 });
 
 type RecipeFormValues = z.infer<typeof formSchema>;
@@ -180,7 +180,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
             )}
           />
           {/* NAME FIELD */}
-          <div className="grid grid-cols-3 gap-8">
+          <div className="w-full gap-8">
             <FormField
               control={form.control}
               name="name"
@@ -190,7 +190,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Bu güzelliğin adı ne?"
+                      placeholder="Bu tarifin adı ne?"
                       {...field}
                     />
                   </FormControl>
@@ -200,7 +200,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
             />
           </div>
           {/* Ingredients FIELD */}
-          <div className="grid grid-cols-3 gap-8">
+          <div className="w-full gap-8">
             <FormField
               control={form.control}
               name="ingredients"
@@ -208,37 +208,41 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
                 <FormItem>
                   <FormLabel>İçindekiler</FormLabel>
                   <FormControl>
-                    <Input
+                    <Textarea
+                      label="İçindekiler ?"
                       disabled={loading}
                       placeholder="Marketten ne alınacak?"
                       {...field}
+                      className="w-full"
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
+          </div>
+          <div className="w-full gap-8">
             {/* DESCRIPTION FIELD */}
             <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Açıklama</FormLabel>
                   <FormControl>
                     <Textarea
                       label="Nasıl Yapılır ?"
                       disabled={loading}
                       placeholder="Nasıl yapıldığını açıkla"
                       {...field}
-                      className="max-w-xs"
+                      className="w-full"
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+          </div>
+          <div className="w-full gap-8">
             {/* CATEGORY SELECT */}
             <FormField
               control={form.control}
@@ -277,7 +281,6 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
               )}
             />
           </div>
-
           <Button disabled={loading} className="ml-auto" type="submit">
             {action}
           </Button>

@@ -4,6 +4,7 @@ import { Info } from "@/components/info";
 import Container from "@/components/ui/container";
 import { notFound } from "next/navigation";
 import React from "react";
+import EditLayout from "./layout";
 
 interface RecipePageProps {
   params: {
