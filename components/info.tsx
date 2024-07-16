@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
-import { Recipe } from "../types";
+import { Comment, Recipe } from "../types";
 
 import { FaWhatsapp, FaFacebook, FaTelegram, FaTwitter } from "react-icons/fa";
 
@@ -17,16 +17,24 @@ import { formatCreatedAt } from "@/helpers/format-time";
 
 // Avatar burdan import edilmezse hata alıyor
 import { Avatar } from "@nextui-org/avatar";
-import { usePathname } from "next/navigation";
-import CommentCard from "./comments/comment-card";
+import { usePathname, useRouter } from "next/navigation";
+import { CommentCard } from "./comments/comment-card";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import CommentForm from "./comments/comment-form";
+import { Button } from "./ui/button";
 
 interface InfoProps {
   data: Recipe;
+  comment_count: number;
+  comments: Comment[];
 }
 
-export const Info: React.FC<InfoProps> = ({ data }) => {
+export const Info: React.FC<InfoProps> = ({
+  data,
+  comment_count,
+  comments,
+}) => {
+  const router = useRouter();
 
   // KONTROL AMACLI DESC
   const pathname = usePathname();
@@ -125,17 +133,38 @@ export const Info: React.FC<InfoProps> = ({ data }) => {
           <hr className="mt-6" />
           <div className="flex flex-col gap-x-4 mt-5">
             <h3 className="font-semibold text-black text-2xl mb-2">
-              Yorumlar (0)
+              Yorumlar ({comment_count})
             </h3>
             {user && (
               <>
                 <CommentForm recipeId={data.id} />
-                
+              </>
+            )}
+            {!user && (
+              <>
+                <Button
+                  variant="link"
+                  color="primary"
+                  onClick={() => router.push("/auth/login")}
+                >
+                  Yorum yazmak için giriş yap
+                </Button>
               </>
             )}
             {/* COMMENT SECTION */}
-            <div className="mt-2">
-              <CommentCard />
+            <div className="mt-4">
+              {comment_count === 0 && (
+                <span className="text-xl font-semibold">
+                  Gösterilecek yorum yok
+                </span>
+              )}
+              {comment_count !== 0 && (
+                <>
+                  {comments.map((comment, index) => (
+                    <CommentCard key={index} data={comment} />
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </>

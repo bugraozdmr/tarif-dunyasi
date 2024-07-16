@@ -59,7 +59,6 @@ const CommentForm = ({ recipeId }: { recipeId: string }) => {
   }
 
   const onSubmit = async (data: CommentFormValues) => {
-    console.log(3232);
     try {
       setIsSending(true);
       await axios.post(`/api/comments`, data);

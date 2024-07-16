@@ -27,6 +27,7 @@ export const authRoutes = [
 
 export const hiddenRoutes = [
     "/tarif/yeni",
+    "/ayarlar",
 ]
 
 
@@ -39,4 +40,4 @@ export const apiAuthPrefix = "/api/auth"
 /**
  * @type {string}
  */
-export const DEFAULT_LOGIN_REDIRECT = "/ayarlar"
+export const DEFAULT_LOGIN_REDIRECT = "/"

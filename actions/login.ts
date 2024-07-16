@@ -16,6 +16,7 @@ import { db } from "@/lib/db";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 
 import { AuthError } from "next-auth";
+import { revalidatePath } from "next/cache";
 
 export const login = async (
   values: z.infer<typeof LoginSchema>,
@@ -113,6 +114,9 @@ export const login = async (
       password,
       redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
+
+    revalidatePath("/","layout");
+    
   } catch (error: any) {
     // AuthError check edilmek zorunda
     if (error instanceof AuthError) {

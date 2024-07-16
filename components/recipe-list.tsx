@@ -20,7 +20,7 @@ export const RecipeList : React.FC<RecipeListProps> = ({
             {items.length === 0 && <NoResults />}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {items.map((item,index) => (
-                    <RecipeCard key={index} data={item} />
+                    <RecipeCard key={index} data={item}/>
                 ))}
             </div>
         </div>

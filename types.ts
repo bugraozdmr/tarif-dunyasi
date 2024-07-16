@@ -37,3 +37,9 @@ export interface User {
   name: string;
   image : string;
 }
+
+export interface Comment{
+  text : string;
+  user : User;
+  createdAt: Date;
+}

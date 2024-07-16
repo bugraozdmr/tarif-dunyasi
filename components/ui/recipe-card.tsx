@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 
 import toast from "react-hot-toast";
 
@@ -13,6 +12,8 @@ import { useRouter } from "next/navigation";
 import { MouseEventHandler } from "react";
 import usePreviewModal from "../../hooks/use-preview-modal";
 import { GetCategory } from "@/data/get-category-name";
+import { getCommentCount } from "@/actions/comment/get-comment-count";
+import { formatCreatedAt } from "@/helpers/format-time";
 
 interface RecipeCardProps {
   data: Recipe;
@@ -32,6 +33,7 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ data }) => {
     previewModal.onOpen(data);
   }
 
+  
   const onCopy : MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
     navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_APP_URL}/${data.slug}`);
@@ -74,7 +76,7 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ data }) => {
       </div>
       {/* TODO */}
       <div className="flex items-center justify-between">
-      TODO YORUM SAYISI
+      {formatCreatedAt(data.createdAt)}
       </div>
     </div>
   );

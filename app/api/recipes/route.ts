@@ -125,7 +125,7 @@ export async function GET(req: Request) {
 
     return NextResponse.json(recipes);
   } catch (error) {
-    console.log("[RECIPES_DELETE]", error);
+    console.log("[RECIPES_GET]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
