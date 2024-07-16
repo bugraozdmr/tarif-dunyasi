@@ -14,7 +14,7 @@ export async function POST(req: Request) {
 
     const body = await req.json();
 
-    const { name, categoryId, description, images } = body;
+    const { name, categoryId, description, images,ingredients } = body;
 
     const realCatId = parseInt(categoryId, 10);
 
@@ -24,6 +24,10 @@ export async function POST(req: Request) {
 
     if (!name) {
       return new NextResponse("Name is required", { status: 400 });
+    }
+    
+    if (!ingredients) {
+      return new NextResponse("ingredients are required", { status: 400 });
     }
 
     if (!Array.isArray(images) || images.length === 0) {
@@ -54,6 +58,7 @@ export async function POST(req: Request) {
       data: {
         name,
         userId,
+        ingredients,
         description,
         categoryId: realCatId,
         slug,
@@ -94,6 +99,7 @@ export async function GET(req: Request) {
         categoryId: true,
         slug: true,
         description: true,
+        ingredients: true,
         createdAt: true,
         images: {
           select: {

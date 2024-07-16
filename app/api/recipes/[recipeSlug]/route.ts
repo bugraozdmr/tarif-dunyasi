@@ -14,7 +14,7 @@ export async function PATCH(
     
     const body = await req.json();
 
-    const { name, categoryId, images, description } = body;
+    const { ingredients, name, categoryId, images, description } = body;
 
     // categori duzenleme
     const realCatId = parseInt(categoryId, 10);
@@ -34,6 +34,10 @@ export async function PATCH(
 
     if (!description) {
       return new NextResponse("Açıklama gerekli", { status: 400 });
+    }
+
+    if (!ingredients) {
+      return new NextResponse("İçindekiler gerekli", { status: 400 });
     }
 
     if (!Array.isArray(images) || images.length === 0) {
@@ -66,6 +70,8 @@ export async function PATCH(
       data: {
         name,
         categoryId:realCatId,
+        ingredients,
+        description,
         images: {
           deleteMany: {},
         },

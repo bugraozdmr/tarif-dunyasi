@@ -33,12 +33,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Category } from "@/types";
+import { Textarea } from "@nextui-org/react";
 
 // duzgun tanimla interface'i
 interface RecipeFormProps {
-  initialData: Recipe & {
-    images : Image[] 
-  } | null ;
+  initialData:
+    | (Recipe & {
+        images: Image[];
+      })
+    | null;
   categories: Category[];
 }
 
@@ -47,8 +50,9 @@ const formSchema = z.object({
     message: "İsim alanı gerekli",
   }),
   images: z.object({ url: z.string() }).array(),
-  categoryId: z.union([z.number(), z.string()]), 
+  categoryId: z.union([z.number(), z.string()]),
   description: z.string().min(1).max(1000),
+  ingredients: z.string().min(1).max(400),
 });
 
 type RecipeFormValues = z.infer<typeof formSchema>;
@@ -58,7 +62,6 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
   initialData,
   categories,
 }) => {
-
   const title = initialData ? "Tarifi düzenle" : "Tarif oluştur";
   const description = initialData ? "Tarifi düzenle" : "Tarif oluştur";
   const toastMessage = initialData ? "Tarif düzenlendi" : "Tarif oluşturuldu";
@@ -81,6 +84,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
           images: [],
           categoryId: 0,
           description: "",
+          ingredients: "",
         },
   });
 
@@ -88,10 +92,7 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(
-          `/api/recipes/${params.recipeSlug}`,
-          data
-        );
+        await axios.patch(`/api/recipes/${params.recipeSlug}`, data);
       } else {
         await axios.post(`/api/recipes`, data);
       }
@@ -112,18 +113,14 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(
-        `/api/recipes/${params.recipeSlug}`
-      );
+      await axios.delete(`/api/recipes/${params.recipeSlug}`);
       // sira onemli once push sonra refresh
       router.push(`/`);
       router.refresh();
       toast.success("Tarif silindi.");
     } catch (error) {
       console.log(error);
-      toast.error(
-        "Bir şeyler ters gitti!"
-      );
+      toast.error("Bir şeyler ters gitti!");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -201,6 +198,27 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
                 </FormItem>
               )}
             />
+          </div>
+          {/* Ingredients FIELD */}
+          <div className="grid grid-cols-3 gap-8">
+            <FormField
+              control={form.control}
+              name="ingredients"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>İçindekiler</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder="Marketten ne alınacak?"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             {/* DESCRIPTION FIELD */}
             <FormField
               control={form.control}
@@ -209,10 +227,12 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
                 <FormItem>
                   <FormLabel>Açıklama</FormLabel>
                   <FormControl>
-                    <Input
+                    <Textarea
+                      label="Nasıl Yapılır ?"
                       disabled={loading}
                       placeholder="Nasıl yapıldığını açıkla"
                       {...field}
+                      className="max-w-xs"
                     />
                   </FormControl>
                   <FormMessage />
@@ -242,7 +262,10 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
                       </FormControl>
                       <SelectContent>
                         {categories.map((category) => (
-                          <SelectItem key={category.id} value={category.id?.toString()}>
+                          <SelectItem
+                            key={category.id}
+                            value={category.id?.toString()}
+                          >
                             {category.name}
                           </SelectItem>
                         ))}
@@ -253,7 +276,6 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
                 </FormItem>
               )}
             />
-            
           </div>
 
           <Button disabled={loading} className="ml-auto" type="submit">

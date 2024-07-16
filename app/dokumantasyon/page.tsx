@@ -1,7 +1,8 @@
-const DocumentationPage = () => {
+
+const DocumentationPage = async () => {
     return ( 
         <>
-        Doc
+          Doc
         </>
      );
 }
