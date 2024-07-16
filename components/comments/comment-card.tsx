@@ -1,5 +1,6 @@
 import React from "react";
-import {Card, CardHeader, CardBody, CardFooter, Avatar} from "@nextui-org/react";
+import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/react";
+import {Avatar} from "@nextui-org/avatar";
 
 export default function CommentCard() {
 

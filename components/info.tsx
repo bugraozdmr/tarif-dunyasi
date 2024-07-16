@@ -18,17 +18,15 @@ import { formatCreatedAt } from "@/helpers/format-time";
 // Avatar burdan import edilmezse hata alıyor
 import { Avatar } from "@nextui-org/avatar";
 import { usePathname } from "next/navigation";
-import { Button, Textarea } from "@nextui-org/react";
 import CommentCard from "./comments/comment-card";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { SendIcon } from "lucide-react";
+import CommentForm from "./comments/comment-form";
 
 interface InfoProps {
   data: Recipe;
 }
 
 export const Info: React.FC<InfoProps> = ({ data }) => {
-  const [isSending, setIsSending] = useState(false);
 
   // KONTROL AMACLI DESC
   const pathname = usePathname();
@@ -131,41 +129,12 @@ export const Info: React.FC<InfoProps> = ({ data }) => {
             </h3>
             {user && (
               <>
-                <Textarea
-                  label="Yorum Yaz"
-                  variant="bordered"
-                  placeholder="Tarif hakkında düşüncelerini belirt"
-                  disableAnimation
-                  disableAutosize
-                  classNames={{
-                    base: "w-full",
-                    input: "resize-y min-h-[60px]",
-                  }}
-                />
-                {isSending ? (
-                  <Button
-                    color="primary"
-                    className="mt-1.5"
-                    variant="bordered"
-                    isLoading
-                  >
-                    <span className="text-lg">Gönderiliyor</span>
-                  </Button>
-                ) : (
-                  <Button
-                    color="primary"
-                    className="mt-1.5"
-                    variant="bordered"
-                    onClick={() => setIsSending(true)}
-                  >
-                    <span className="text-lg">Gönder</span> <SendIcon />
-                  </Button>
-                )}
+                <CommentForm recipeId={data.id} />
+                
               </>
             )}
             {/* COMMENT SECTION */}
             <div className="mt-2">
-              {/* AVATARDAN HATA ALIYOR */}
               <CommentCard />
             </div>
           </div>
