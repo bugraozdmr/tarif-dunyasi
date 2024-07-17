@@ -206,7 +206,6 @@ export const RecipeForm: React.FC<RecipeFormProps> = ({
               name="ingredients"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>İçindekiler</FormLabel>
                   <FormControl>
                     <Textarea
                       label="İçindekiler ?"

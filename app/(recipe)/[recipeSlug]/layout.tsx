@@ -15,6 +15,13 @@ interface EditLayoutProps {
 export const generateMetadata = async ({ params } : GenerateMetadataProps) => {
   const recipe = await getRecipe(params.recipeSlug);
 
+  if(!recipe){
+    return {
+      title: `Aradığınız sayfa bulunamadı`,
+      description : `Tarif dünyası nefis mi nefis yemeklerin tek adresi.`
+    }
+  }
+
   return {
     title: `${recipe.name} | Tarif Dünyası`,
     description : `${recipe.name} nasıl yapılır ? ${recipe.name} tarifi.`

@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 // !! req kullanılmasada eklenmesi zorunlu -- ilk arguman olmak zorunda !!
 export async function DELETE(
   req: Request,
-  { params }: { params: { recipeSlug: string } }
+  { params }: { params: { commentId: string } }
 ) {
   try {
     const user = await currentUser();
@@ -18,49 +18,48 @@ export async function DELETE(
       return new NextResponse("Unauthenticated", { status: 401 });
     }
 
-    if (!params.recipeSlug) {
-      return new NextResponse("Slug gerekli", { status: 400 });
+    if (!params.commentId) {
+      return new NextResponse("Comment Id gerekli", { status: 400 });
     }
 
-    const recipeByUserId = await prismadb.recipe.findFirst({
+    const commentByUserId = await prismadb.comment.findFirst({
       where: {
-        slug: params.recipeSlug,
+        id : params.commentId,
         userId,
       },
     });
 
-    if (!recipeByUserId) {
+    if (!commentByUserId) {
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    const recipe = await prismadb.recipe.deleteMany({
+    const comment = await prismadb.comment.deleteMany({
       where: {
-        id: recipeByUserId.id,
+        id: commentByUserId.id,
       },
     });
 
-    return NextResponse.json(recipe);
+    return NextResponse.json(comment);
   } catch (error) {
-    console.log("[RECIPE_DELETE]", error);
+    console.log("[COMMENT_DELETE]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
 
 export async function GET(
   req: Request,
-  { params }: { params: { recipeSlug: string } }
+  { params }: { params: { commentId: string } }
 ) {
   try {
-    if (!params.recipeSlug) {
-      return new NextResponse("Slug gerekli", { status: 400 });
+    if (!params.commentId) {
+      return new NextResponse("Comment id gerekli", { status: 400 });
     }
 
-    const recipe = await prismadb.recipe.findUnique({
+    const comment = await prismadb.comment.findUnique({
       where: {
-        slug: params.recipeSlug,
+        id : params.commentId
       },
       include: {
-        images: true,
         user: {
           select : {
             name : true,
@@ -70,9 +69,9 @@ export async function GET(
       },
     });
 
-    return NextResponse.json(recipe);
+    return NextResponse.json(comment);
   } catch (error) {
-    console.log("[RECIPE_GET]", error);
+    console.log("[COMMENT_GET]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }

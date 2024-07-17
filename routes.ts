@@ -28,6 +28,8 @@ export const authRoutes = [
 export const hiddenRoutes = [
     "/tarif/yeni",
     "/ayarlar",
+    "/server",
+    "/tarif",
 ]
 
 

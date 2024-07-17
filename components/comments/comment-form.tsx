@@ -86,7 +86,6 @@ const CommentForm = ({ recipeId }: { recipeId: string }) => {
             name="text"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>İçindekiler</FormLabel>
                 <FormControl>
                   <Textarea
                     label="Yorum Yaz"

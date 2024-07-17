@@ -46,7 +46,8 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ data }) => {
   return (
     <div
       onClick={handleClick}
-      className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4"
+      className="bg-white group cursor-pointer rounded-xl border shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out p-4 space-y-4"
+
     >
       {/* Images and Actions */}
       <div className="aspect-square rounded-xl bg-gray-100 relative">
@@ -54,7 +55,7 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ data }) => {
           alt="Image"
           src={data?.images?.[0]?.url}
           fill
-          className="aspect-square object-cover rounded-md"
+          className="aspect-square object-cover rounded-md "
         />
         <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
           <div className="flex gap-x-6 justify-center">

@@ -16,6 +16,8 @@ interface RecipePageProps {
 const CategoryRecipePage: React.FC<RecipePageProps> = async ({ params }) => {
   const recipe = await getRecipe(params.recipeSlug);
 
+  console.log(recipe);
+
   if (!recipe) {
     return notFound();
   }

@@ -26,6 +26,7 @@ import { Edit, Trash } from "lucide-react";
 import axios from "axios";
 import { toast } from "sonner";
 import { AlertModal } from "./modals/alert-modal";
+import { UseCurrentRole } from "@/hooks/use-current-role";
 
 interface InfoProps {
   data: Recipe;
@@ -54,6 +55,8 @@ export const Info: React.FC<InfoProps> = ({
 
   // USER
   const user = useCurrentUser();
+  // ROLE
+  const role = UseCurrentRole();
 
   // replacing instructions and recipes
   data.description = data.description.replace(/\n/g, "<br />");
@@ -86,7 +89,7 @@ export const Info: React.FC<InfoProps> = ({
         loading={pending}
       />
 
-      {pathname === `/${data.slug}` && (
+      {pathname === `/${data.slug}` && role === 'ADMIN' && (
         <div className="flex flex-row justify-center mx-5 mb-8">
           <Button
             variant="destructive"
@@ -205,7 +208,7 @@ export const Info: React.FC<InfoProps> = ({
               </>
             )}
             {/* COMMENT SECTION */}
-            <div className="mt-4">
+            <div className="mt-4 flex justify-center">
               {comment_count === 0 && (
                 <span className="text-xl font-semibold">
                   Gösterilecek yorum yok
@@ -214,7 +217,7 @@ export const Info: React.FC<InfoProps> = ({
               {comment_count !== 0 && (
                 <>
                   {comments.map((comment, index) => (
-                    <CommentCard key={index} data={comment} />
+                    <CommentCard key={index} data={comment} slug={data.slug} />
                   ))}
                 </>
               )}
