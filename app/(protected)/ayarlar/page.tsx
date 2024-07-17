@@ -7,7 +7,6 @@ import {
   Card,
   CardHeader,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
 import { useState, useTransition } from "react";
 import { useSession } from "next-auth/react";
@@ -40,7 +39,6 @@ import { Switch } from "@/components/ui/switch";
 const SettingsPage = () => {
   // current user
   const user = useCurrentUser();
-  
 
   // session
   const { update } = useSession();
@@ -50,6 +48,7 @@ const SettingsPage = () => {
   // Transition
   const [isPending, startTransition] = useTransition();
 
+  
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
@@ -59,7 +58,7 @@ const SettingsPage = () => {
       password: undefined,
       newPassword: undefined,
       role: user?.role || undefined,
-      isTwoFactorEnabled:user?.isTwoFactorEnabled || undefined,
+      isTwoFactorEnabled: user?.isTwoFactorEnabled || undefined,
     },
   });
 
@@ -72,19 +71,21 @@ const SettingsPage = () => {
             setError(data.error);
           }
           if (data.success) {
+            console.log(values.role);
+            
             // manuelly updated session - - - after success
             update();
             setSuccess(data.success);
           }
         })
-        .catch(() => setError("Something went wrong !"));
+        .catch(() => setError("Bir şeyler ters gitti !"));
     });
   };
 
   return (
-    <Card className="w-[80%]">
+    <Card className="w-[80%] mt-8 mb-8">
       <CardHeader>
-        <p className="text-2xl font-semibold text-center">🚂 Settings</p>
+        <p className="text-2xl font-semibold text-center">📱 Ayarlar</p>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -99,7 +100,7 @@ const SettingsPage = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>isim</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -173,32 +174,38 @@ const SettingsPage = () => {
                   />
                 </>
               )}
-              {/* Role field */}
-              <FormField
-                control={form.control}
-                name="role"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Role</FormLabel>
-                    <Select
-                      disabled={isPending}
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a role" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value={UserRole.ADMIN}>Admin</SelectItem>
-                        <SelectItem value={UserRole.USER}>User</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {user?.role === "ADMIN" && (
+                <>
+                  {/* Role field */}
+                  <FormField
+                    control={form.control}
+                    name="role"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Rol</FormLabel>
+                        <Select
+                          disabled={isPending}
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a role" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value={UserRole.ADMIN}>
+                              Admin
+                            </SelectItem>
+                            <SelectItem value={UserRole.USER}>User</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
               {/* Switch 2FA field */}
               <FormField
                 control={form.control}
@@ -206,9 +213,9 @@ const SettingsPage = () => {
                 render={({ field }) => (
                   <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                     <div className="space-y-0.5">
-                      <FormLabel>2 Factor Authentication</FormLabel>
+                      <FormLabel>2 aşamalı doğrulama</FormLabel>
                       <FormDescription>
-                        Enable 2 Factor Authentication for your account{" "}
+                        2 aşamalı doğrulamayı etkinleştir{" "}
                       </FormDescription>
                     </div>
                     <FormControl>
@@ -226,7 +233,7 @@ const SettingsPage = () => {
             <FormError message={error} />
             <FormSuccess message={success} />
             <Button type="submit" disabled={isPending}>
-              Save
+              Kaydet
             </Button>
           </form>
         </Form>

@@ -11,10 +11,11 @@ import { Avatar } from "@nextui-org/avatar";
 import { LogOut, User } from "lucide-react";
 
 import UserImage from "@/public/user.png";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Button as CustomButton } from "@/components/ui/button";
 import { useState } from "react";
+import { revalidatePath } from "next/cache";
 
 
 export const UserButton = () => {
@@ -62,8 +63,8 @@ export const UserButton = () => {
           <DropdownItem key="settings" onClick={() => router.push("/ayarlar")}>
             Ayarlar
           </DropdownItem>
-          <DropdownItem key="analytics">Tarifler</DropdownItem>
-          <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
+          <DropdownItem key="analytics" onClick={() => router.push("/tarif")} >Tariflerim</DropdownItem>
+          <DropdownItem key="help_and_feedback" onClick={() => router.push("/server")}>Kullanıcı Hakkında</DropdownItem>
           <DropdownItem
             key="logout"
             color="danger"

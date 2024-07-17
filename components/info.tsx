@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Comment, Recipe } from "../types";
 
@@ -55,6 +55,7 @@ export const Info: React.FC<InfoProps> = ({
 
   // USER
   const user = useCurrentUser();
+
   // ROLE
   const role = UseCurrentRole();
 
@@ -208,11 +209,11 @@ export const Info: React.FC<InfoProps> = ({
               </>
             )}
             {/* COMMENT SECTION */}
-            <div className="mt-4 flex justify-center">
+            <div className="mt-4">
               {comment_count === 0 && (
-                <span className="text-xl font-semibold">
+                <div className="text-xl font-semibold text-center">
                   Gösterilecek yorum yok
-                </span>
+                </div>
               )}
               {comment_count !== 0 && (
                 <>

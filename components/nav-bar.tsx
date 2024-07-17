@@ -6,7 +6,6 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Input,
   DropdownItem,
   DropdownTrigger,
   Dropdown,
@@ -14,7 +13,7 @@ import {
   Button,
 } from "@nextui-org/react";
 
-import { ChefHat, ChevronDownIcon, SearchIcon } from "lucide-react";
+import { ChefHat, ChevronDownIcon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
 import Link from "next/link";
@@ -22,6 +21,7 @@ import Link from "next/link";
 import { UserButton } from "./navbar/user-button";
 import { Categories } from "@/categoryData";
 import { getIconComponent } from "@/lib/iconMap";
+import SearchInputField from "./search/input";
 
 export default function NavbarC() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -108,19 +108,7 @@ export default function NavbarC() {
       </NavbarContent>
 
       <NavbarContent as="div" className="items-center" justify="end">
-        <Input
-          classNames={{
-            base: "max-w-full sm:max-w-[10rem] h-10",
-            mainWrapper: "h-full",
-            input: "text-small",
-            inputWrapper:
-              "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
-          }}
-          placeholder="Ne aramak istiyorsun ?.."
-          size="sm"
-          startContent={<SearchIcon size={18} />}
-          type="search"
-        />
+        <SearchInputField />
         {/* User Button */}
         <UserButton />
       </NavbarContent>

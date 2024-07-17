@@ -29,8 +29,8 @@ export default async function RootLayout({
   return (
     <SessionProvider session={session}>
       <html lang="tr">
-        <Toaster />
         <body className={inter.className}>
+        <Toaster />
           <NextUIProvider>
             <ToasterProvider />
             <ModalProvider />

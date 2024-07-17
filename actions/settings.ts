@@ -11,10 +11,6 @@ import bcrypt from 'bcrypt'
 
 
 
-
-
-
-
 export const settings = async (
     values : z.infer<typeof SettingsSchema>
 ) => {
@@ -43,7 +39,7 @@ export const settings = async (
         const existingUser = await getUserByEmail(values.email);
 
         if(existingUser && existingUser.id !== user.id){
-            return { error : 'Email already in use !'}
+            return { error : 'Email zaten kullanımda !'}
         }
 
         const verificationToken = await generateVerificationToken(
@@ -55,7 +51,7 @@ export const settings = async (
             verificationToken.token
         );
 
-        return {success : 'Verification mail sent!'}
+        return {success : 'Doğrulama kodu yollandı!'}
     }
 
     if(values.password && values.newPassword && dbUser.password){
@@ -65,7 +61,7 @@ export const settings = async (
         );
 
         if(!passwordsMatch){
-            return {error : 'Incorrect password!'}
+            return {error : 'Yanlış şifre!'}
         }
 
         const hashedPassword = await bcrypt.hash(
@@ -75,6 +71,11 @@ export const settings = async (
 
         values.password = hashedPassword;
         values.newPassword = undefined;
+
+        console.log(values.role);
+        if(values.role === undefined){
+            values.role = 'USER';
+        }
     }
 
     // db'de olmayan proplar undefined olacak ve okunmicak
@@ -86,5 +87,5 @@ export const settings = async (
         }
     });
 
-    return {success : 'Settings Updated !'}
+    return {success : 'Kullanıcı bilgileri güncellendi !'}
 }
