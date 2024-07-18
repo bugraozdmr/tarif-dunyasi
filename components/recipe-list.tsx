@@ -13,7 +13,7 @@ export const RecipeList : React.FC<RecipeListProps> = ({
     items
 }) => {
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 mt-2">
             <h3 className="font-bold text-3xl">
                 {title}
             </h3>

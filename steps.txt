@@ -28,6 +28,7 @@ ADMIN SILME DUZENLEME YAPCAK DONE
 
 ARAMA HEMEN HALLEDERSIN QUERY KULLAN
 
+footer'a ekle kategorileri telefon modu için :D
 
 LOading küçük harfle başlar !!!
 

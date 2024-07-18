@@ -78,11 +78,13 @@ export async function POST(req: Request) {
 }
 
 // !! req kullanılmasada eklenmesi zorunlu -- ilk arguman olmak zorunda !!
+// filterleri bura dus aslan
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
 
     const categorySlug = searchParams.get("category") || undefined;
+    const filter = searchParams.get("filter") || undefined;
 
     // varsa filtereleyip getirir yoksa hic yokmus gibi davranir -- Undefined ise yani
     // include sorun olmasın diye select kullandık
@@ -93,6 +95,10 @@ export async function GET(req: Request) {
     const recipes = await prismadb.recipe.findMany({
       where: {
         categoryId: category?.id,
+        name: {
+          contains: filter,
+          mode: "insensitive", // Büyük/küçük harf duyarsız arama yapmak için
+        },
       },
       select: {
         name: true,

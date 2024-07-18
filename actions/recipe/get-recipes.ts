@@ -5,6 +5,7 @@ const URL = `${process.env.NEXT_PUBLIC_APP_URL}/api/recipes`;
 
 interface Query{
     category? : string;
+    filter? : string;
 }
 
 const getRecipes = async (query? : Query) : Promise<Recipe[]> => {
@@ -12,6 +13,7 @@ const getRecipes = async (query? : Query) : Promise<Recipe[]> => {
         url : URL,
         query : {
             category : query?.category,
+            filter : query?.filter
         },
     });
 
