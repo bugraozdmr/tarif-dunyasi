@@ -53,7 +53,14 @@ export const ImageUpload : React.FC<ImageUploadProps> = ({
                 </div>
             ))}
         </div>
-        <CldUploadWidget onUpload={onUpload} uploadPreset="hndtszog" >
+        <CldUploadWidget 
+                onUpload={onUpload} 
+                uploadPreset="hndtszog"
+                options={{
+                    clientAllowedFormats: ["png", "jpg", "jpeg"],
+                    maxFileSize: 1048576
+                }}
+            >
             {({open}) => {
                 const onClick = () => {
                     open();
