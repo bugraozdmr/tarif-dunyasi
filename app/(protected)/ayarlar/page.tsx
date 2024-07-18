@@ -3,11 +3,7 @@
 import * as z from "zod";
 import { settings } from "@/actions/settings";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { useState, useTransition } from "react";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
@@ -48,7 +44,6 @@ const SettingsPage = () => {
   // Transition
   const [isPending, startTransition] = useTransition();
 
-  
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
@@ -72,7 +67,7 @@ const SettingsPage = () => {
           }
           if (data.success) {
             console.log(values.role);
-            
+
             // manuelly updated session - - - after success
             update();
             setSuccess(data.success);
@@ -207,6 +202,7 @@ const SettingsPage = () => {
                 </>
               )}
               {/* Switch 2FA field */}
+              {/* IKI ASAMALI DOGRULAMA GEREK YOK
               <FormField
                 control={form.control}
                 name="isTwoFactorEnabled"
@@ -228,6 +224,8 @@ const SettingsPage = () => {
                   </FormItem>
                 )}
               />
+            
+              */}
             </div>
             {/* Success and Error Messages */}
             <FormError message={error} />

@@ -44,7 +44,9 @@ export const login = async (
     return { error: "Invalid email or password !" };
   }
 
-  if (!existingUser.emailVerified && passwordsMatch) {
+  //! IMPORTANT -- EMAIL VERIFIED DEVRE DISI BIRAKILDI -- !existingUser.emailVerified --  olması gerekn bu
+  //* sonra auth.ts'e git if(!existingUser || !existingUser.emailVerified) return false;
+  if (existingUser.emailVerified && passwordsMatch) {
     // hata alir yoksa as string
     const verificationToken = await generateVerificationToken(
       existingUser.email as string

@@ -27,7 +27,7 @@ export const {
             })
         }
     },
-    callbacks: {
+    callbacks: {
         async signIn({user, account}){
             // Allow OAuth without email verification
             if(account?.provider !== 'credentials') return true;
@@ -36,7 +36,8 @@ export const {
             const existingUser = await getUserById(user.id as string);
 
             // Prevent sign in without email verification
-            if(!existingUser || !existingUser.emailVerified) return false;
+            //! EMAIL VERIFIED DEVRE DISI -- !existingUser.emailVerified -- OLMASI GEREKEN
+            if(!existingUser || existingUser.emailVerified) return false;
 
             
             if(existingUser.isTwoFactorEnabled){

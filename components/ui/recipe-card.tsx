@@ -12,6 +12,7 @@ import usePreviewModal from "../../hooks/use-preview-modal";
 import { GetCategory } from "@/data/get-category-name";
 import { formatCreatedAt } from "@/helpers/format-time";
 import { Spinner } from "@nextui-org/react";
+import ClientLoading from "../client-loading";
 
 interface RecipeCardProps {
   data: Recipe;
@@ -48,12 +49,7 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ data }) => {
     <>
       {/* LOADING COMP */}
       {loading && (
-        <div
-          className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
-          style={{ backdropFilter: "blur(4px)" }}
-        >
-          <Spinner label="Yükleniyor" color="primary" labelColor="warning" />
-        </div>
+        <ClientLoading />
       )}
       <div
         onClick={handleClick}
