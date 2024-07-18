@@ -85,12 +85,29 @@ export async function GET(req: Request) {
 
     const categorySlug = searchParams.get("category") || undefined;
     const filter = searchParams.get("filter") || undefined;
+    const pageNumber = searchParams.get("page") || undefined;
+
+    // PAGINATION -- SKIP
+    let page: number | undefined;
+
+    if (pageNumber !== null) {
+      const parsedPage = parseInt(pageNumber as string, 10);
+      if (!isNaN(parsedPage) && parsedPage >= 0) {
+        page = parsedPage;
+      }
+      else{
+        page = 1;
+      }
+    }
+    else{
+      page = 1;
+    }
+    
 
     // varsa filtereleyip getirir yoksa hic yokmus gibi davranir -- Undefined ise yani
     // include sorun olmasın diye select kullandık
 
     const category = GetCategoryBySlug(categorySlug);
-
 
     const recipes = await prismadb.recipe.findMany({
       where: {
@@ -100,6 +117,8 @@ export async function GET(req: Request) {
           mode: "insensitive", // Büyük/küçük harf duyarsız arama yapmak için
         },
       },
+      skip : 6*(page-1),
+      take :6,
       select: {
         name: true,
         categoryId: true,

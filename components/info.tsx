@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { Comment, Recipe } from "../types";
 
@@ -27,6 +27,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { AlertModal } from "./modals/alert-modal";
 import { UseCurrentRole } from "@/hooks/use-current-role";
+import ClientLoading from "./client-loading";
 
 interface InfoProps {
   data: Recipe;
@@ -42,6 +43,8 @@ export const Info: React.FC<InfoProps> = ({
   // Modal Checker
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);
+
+  const [loading,setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -82,6 +85,11 @@ export const Info: React.FC<InfoProps> = ({
 
   return (
     <div>
+      {/* LOADING COMP */}
+      {loading && (
+        <ClientLoading />
+  
+      )}
       {/* ALERT MODAL BURDA DURACAK */}
       <AlertModal
         isOpen={open}
@@ -103,7 +111,10 @@ export const Info: React.FC<InfoProps> = ({
             variant="secondary"
             className="ml-4"
             disabled={pending}
-            onClick={() => router.push(`/tarif/${data.slug}`)}
+            onClick={() => {
+              setLoading(true);
+              router.push(`/tarif/${data.slug}`);
+            }}
           >
             <Edit />
           </Button>

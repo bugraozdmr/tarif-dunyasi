@@ -3,9 +3,10 @@ import { Comment } from "@/types";
 const URL = `${process.env.NEXT_PUBLIC_APP_URL}/api/comments?recipeId=`;
 
 
-const getComments = async ({recipeId} : {recipeId:string}) : Promise<Comment[]> => {
+const getComments = async ({recipeId,page} : {recipeId:string,page? : number;}) : Promise<Comment[]> => {
     // caching olmasın dedim
-    const response = await fetch(`${URL}${recipeId}`,{ cache: 'no-store' });
+    // elle verildi page
+    const response = await fetch(`${URL}${recipeId}&page=${page}`,{ cache: 'no-store' });
 
     return response.json();
 }

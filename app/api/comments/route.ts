@@ -64,6 +64,28 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
 
     const recipeId = searchParams.get("recipeId") || undefined;
+    const pageNumber = searchParams.get("page") || undefined;
+
+    // PAGINATION -- SKIP
+    let page: number | undefined;
+
+    if (pageNumber !== null) {
+      const parsedPage = parseInt(pageNumber as string, 10);
+      if (!isNaN(parsedPage) && parsedPage >= 0) {
+        page = parsedPage;
+      }
+      else{
+        page = 1;
+      }
+    }
+    else{
+      page = 1;
+    }
+    
+
+    
+
+
 
     // varsa filtereleyip getirir yoksa hic yokmus gibi davranir -- Undefined ise yani
     // include sorun olmasın diye select kullandık
@@ -72,6 +94,8 @@ export async function GET(req: Request) {
       where: {
         recipeId: recipeId,
       },
+      skip : 6*(page-1),
+      take :6,
       select: {
         id : true,
         text: true,

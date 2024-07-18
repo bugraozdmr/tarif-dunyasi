@@ -1,27 +1,31 @@
+import prismadb from "@/lib/prismadb";
 import { Recipe } from "@/types";
-import qs from 'query-string'
+import qs from "query-string";
 
 const URL = `${process.env.NEXT_PUBLIC_APP_URL}/api/recipes`;
 
-interface Query{
-    category? : string;
-    filter? : string;
+interface Query {
+  category?: string;
+  filter?: string;
+  page? : number;
 }
 
-const getRecipes = async (query? : Query) : Promise<Recipe[]> => {
-    const url = qs.stringifyUrl({
-        url : URL,
-        query : {
-            category : query?.category,
-            filter : query?.filter
-        },
-    });
+// pagination sayfa: D
 
-    // caching olmasın dedim
-    const response = await fetch(url,{ cache: 'no-store' });
+const getRecipes = async (query?: Query): Promise<Recipe[]> => {
+  const RecipesUrl = qs.stringifyUrl({
+    url: URL,
+    query: {
+      category: query?.category,
+      filter: query?.filter,
+      page: query?.page,
+    },
+  });
 
+  // caching olmasın dedim
+  const response = await fetch(RecipesUrl, { cache: "no-store" });
 
-    return response.json();
-}
+  return response.json();
+};
 
 export default getRecipes;

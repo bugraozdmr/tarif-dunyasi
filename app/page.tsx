@@ -9,6 +9,8 @@ import getRecipes from "@/actions/recipe/get-recipes";
 import { useSearchParams } from "next/navigation";
 import { Recipe } from "@/types";
 import Loading from "./loading";
+import getRecipeCount from "@/actions/recipe/get-recipe-count";
+import { Pagination } from "@nextui-org/react";
 
 // tip düzeltmesi
 const nullToUndefined = (value: string | null): string | undefined => {
@@ -19,7 +21,10 @@ const nullToUndefined = (value: string | null): string | undefined => {
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [count, setCount] = useState<number | null>(null);
+  const [pageCount, setPageCount] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const params = useSearchParams();
   const filter = nullToUndefined(params.get("filter"));
@@ -27,13 +32,37 @@ const HomePage = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       setLoading(true);
-      const fetchedRecipes = await getRecipes({ filter });
+
+      const count = await getRecipeCount({ filter });
+      setCount(count);
+
+      // TODO 12 YAPILCAK
+      if(count > 6){
+        if(count % 6 === 0){
+          setPageCount(count / 6)
+        }
+        else{
+          setPageCount((count / 6) + 1)
+        }
+      }
+      else{
+        setPageCount(null);
+      }
+
+      const fetchedRecipes = await getRecipes({ filter , page:currentPage });
       setRecipes(fetchedRecipes);
+
       setLoading(false);
     };
 
     fetchRecipes();
-  }, [filter]);
+  }, [filter,currentPage]);
+
+
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   const billboard = {
     label: "En sevdiğiniz yemeklerin tariflerini öğrenin ve paylaşın",
@@ -47,20 +76,31 @@ const HomePage = () => {
       )}
       <div className="space-y-10 pb-10">
         {!filter && <Billboard data={billboard} />}
-
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
           {loading ? (
             <Loading />
           ) : (
+            <>
             <RecipeList
               title={
                 filter
-                  ? `"${filter}" için ${recipes.length} sonuç bulundu`
+                  ? `"${filter}" için ${count ? `${count}` : 0} sonuç bulundu`
                   : "Son eklenen tarifler"
               }
               items={recipes}
             />
+            {(pageCount && pageCount !== 0 && pageCount !== 1) && (
+              <div className="flex justify-center">
+                <Pagination 
+                total={pageCount}
+                initialPage={currentPage}
+                color="warning"
+                onChange={handlePageChange}/>
+              </div>
+            )}
+            </>
           )}
+          
         </div>
       </div>
     </>
