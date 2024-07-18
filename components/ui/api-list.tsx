@@ -25,6 +25,11 @@ export const ApiList : React.FC<ApiListProps> = ({
             variant="public"
             description={`${baseUrl}/${entityName}`}
             />
+            <ApiAlert
+            title="GET"
+            variant="public"
+            description={`${baseUrl}/${entityName}?page={pageNumber}`}
+            />
             {/* ne koyman gerek tarzı idname */}
             <ApiAlert
             title="GET"

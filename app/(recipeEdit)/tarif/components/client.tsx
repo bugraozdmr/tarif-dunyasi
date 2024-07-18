@@ -1,19 +1,16 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { useParams, useRouter } from "next/navigation";
 import { RecipeColumn, columns } from "../[recipeSlug]/components/columns";
 import { DataTable } from "@/components/ui/data-table";
-import { ApiList } from "@/components/ui/api-list";
 
 interface RecipesClientProps{
   data : RecipeColumn[]
 }
 
-export const SizesClient : React.FC<RecipesClientProps> = ({
+export const RecipesClient : React.FC<RecipesClientProps> = ({
   data
 }) => {
   const router = useRouter();

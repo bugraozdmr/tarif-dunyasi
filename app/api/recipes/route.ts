@@ -39,6 +39,19 @@ export async function POST(req: Request) {
     }
 
 
+    // Image extension check
+    const validExtensions = ['.png', '.jpg', '.jpeg'];
+    for (const image of images) {
+      const url = image.url;
+      const extension = url.slice(url.lastIndexOf('.')).toLowerCase();
+
+      if (!validExtensions.includes(extension)) {
+        return new NextResponse("Kabul edilen türde resim yükleyiniz!", { status: 400 });
+      }
+    }
+
+
+
     const userByUserId = await prismadb.user.findFirst({
       where: {
         id: userId,

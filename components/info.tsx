@@ -31,8 +31,8 @@ import ClientLoading from "./client-loading";
 
 interface InfoProps {
   data: Recipe;
-  comment_count: number;
-  comments: Comment[];
+  comment_count?: number;
+  comments?: Comment[];
 }
 
 export const Info: React.FC<InfoProps> = ({
@@ -228,7 +228,7 @@ export const Info: React.FC<InfoProps> = ({
               )}
               {comment_count !== 0 && (
                 <>
-                  {comments.map((comment, index) => (
+                  {comments?.map((comment, index) => (
                     <CommentCard key={index} data={comment} slug={data.slug} />
                   ))}
                 </>

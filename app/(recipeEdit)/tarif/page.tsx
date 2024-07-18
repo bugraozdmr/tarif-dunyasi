@@ -1,5 +1,5 @@
 import prismadb from "@/lib/prismadb";
-import { SizesClient } from "./components/client";
+import { RecipesClient } from "./components/client";
 import { RecipeColumn } from "./[recipeSlug]/components/columns";
 import {format} from 'date-fns';
 import { currentUser } from "@/lib/auth";
@@ -33,7 +33,7 @@ const RecipePage = async () => {
     return (
         <div className="flex-col">
             <div className="flex-1 space-y-4 p-8 pt-6">
-                <SizesClient data={formattedRecipes} />
+                <RecipesClient data={formattedRecipes} />
             </div>
         </div>
     )

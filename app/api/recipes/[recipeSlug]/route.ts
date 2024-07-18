@@ -44,6 +44,17 @@ export async function PATCH(
       return new NextResponse("Images are required", { status: 400 });
     }
 
+    // Image extension check
+    const validExtensions = ['.png', '.jpg', '.jpeg'];
+    for (const image of images) {
+      const url = image.url;
+      const extension = url.slice(url.lastIndexOf('.')).toLowerCase();
+
+      if (!validExtensions.includes(extension)) {
+        return new NextResponse("Kabul edilen türde resim yükleyiniz!", { status: 400 });
+      }
+    }
+
     if (!categoryId) {
       return new NextResponse("Category id is required", { status: 400 });
     }
