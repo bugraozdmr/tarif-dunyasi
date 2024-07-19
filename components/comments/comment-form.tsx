@@ -63,7 +63,6 @@ const CommentForm = ({ recipeId }: { recipeId: string }) => {
       setIsSending(true);
       await axios.post(`/api/comments`, data);
       // route yenilenir bilgiler guncellenir
-      console.log(data);
       router.refresh();
       toast.success("Yorum gönderildi");
     } catch (error) {

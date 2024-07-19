@@ -207,12 +207,12 @@ export const Info: React.FC<InfoProps> = ({
             <h3 className="font-semibold text-black text-2xl mb-2">
               Yorumlar ({comment_count})
             </h3>
-            {user && isAuthenticated && (
+            {isAuthenticated && (
               <>
                 <CommentForm recipeId={data.id} />
               </>
             )}
-            {!user && (
+            {!user && !isAuthenticated && (
               <>
                 <Button
                   variant="link"
@@ -225,7 +225,7 @@ export const Info: React.FC<InfoProps> = ({
             )}
             {/* COMMENT SECTION */}
             <div className="mt-4">
-              {comment_count === 0 && (
+              {comment_count === 0 && !isAuthenticated && (
                 <div className="text-xl font-semibold text-center">
                   Gösterilecek yorum yok
                 </div>

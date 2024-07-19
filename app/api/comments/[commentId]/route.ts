@@ -1,4 +1,4 @@
-import { currentUser } from "@/lib/auth";
+import { CurrentRole, currentUser } from "@/lib/auth";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
@@ -11,6 +11,11 @@ export async function DELETE(
 ) {
   try {
     const user = await currentUser();
+    const role = await CurrentRole();
+
+    if(role !== 'ADMIN'){
+      return new NextResponse("Unauthorized", { status: 403 });
+    }
 
     const userId = user?.id;
 
@@ -22,20 +27,9 @@ export async function DELETE(
       return new NextResponse("Comment Id gerekli", { status: 400 });
     }
 
-    const commentByUserId = await prismadb.comment.findFirst({
-      where: {
-        id : params.commentId,
-        userId,
-      },
-    });
-
-    if (!commentByUserId) {
-      return new NextResponse("Unauthorized", { status: 403 });
-    }
-
     const comment = await prismadb.comment.deleteMany({
       where: {
-        id: commentByUserId.id,
+        id: params.commentId,
       },
     });
 

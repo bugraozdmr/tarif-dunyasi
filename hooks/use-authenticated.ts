@@ -16,10 +16,11 @@ const useAuthStore = create<AuthState>((set) => ({
   setAuthenticated: (auth) => set({ isAuthenticated: auth }),
   controlUser: async () => {
     //__Secure-authjs.session-token -- sitede bu var
+    //authjs.session-token -- dev token
     //! COOKIE KONTROL ILE USER CONTROL
     try {
       const cookiess = await getCookies(); // Await the async function
-      const sessionCookie = cookiess.find(cookie => cookie.name === '__Secure-authjs.session-token');
+      const sessionCookie = cookiess.find(cookie => cookie.name === 'authjs.session-token');
 
 
       const isAuthenticated = !!sessionCookie; 

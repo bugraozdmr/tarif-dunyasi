@@ -14,6 +14,8 @@ export async function POST(req: Request) {
 
     const { text, recipeId, userId } = body;
 
+    console.log(userId,userIdd);
+
     if(userIdd !== userId){
       return new NextResponse("WTF?", { status: 401 });
     }
