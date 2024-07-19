@@ -1,4 +1,4 @@
-import { currentUser } from "@/lib/auth";
+import { CurrentRole, currentUser } from "@/lib/auth";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
@@ -118,6 +118,11 @@ export async function DELETE(
 ) {
   try {
     const user = await currentUser();
+    const role = await CurrentRole();
+
+    if(role !== 'ADMIN'){
+      return new NextResponse("Unauthorized", { status: 403 });
+    }
 
     const userId = user?.id;
 
@@ -129,20 +134,9 @@ export async function DELETE(
       return new NextResponse("Slug gerekli", { status: 400 });
     }
 
-    const recipeByUserId = await prismadb.recipe.findFirst({
-      where: {
-        slug: params.recipeSlug,
-        userId,
-      },
-    });
-
-    if (!recipeByUserId) {
-      return new NextResponse("Unauthorized", { status: 403 });
-    }
-
     const recipe = await prismadb.recipe.deleteMany({
       where: {
-        id: recipeByUserId.id,
+        slug: params.recipeSlug,
       },
     });
 
