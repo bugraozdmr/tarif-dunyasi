@@ -13,6 +13,13 @@ It's basically the site that you can learn how to cook better with other peoples
 <hr>
 <a href="(https://github.com/bugraozdmr/tarif-dunyasi/blob/main/github_photos/6.png" target="_blank"><img src="https://raw.githubusercontent.com/bugraozdmr/tarif-dunyasi/main/github_photos/6.png"/></a>
 <hr>
+<a href="(https://github.com/bugraozdmr/tarif-dunyasi/blob/main/github_photos/7.png" target="_blank"><img src="https://raw.githubusercontent.com/bugraozdmr/tarif-dunyasi/main/github_photos/7.png"/></a>
+<hr>
+<a href="(https://github.com/bugraozdmr/tarif-dunyasi/blob/main/github_photos/8.png" target="_blank"><img src="https://raw.githubusercontent.com/bugraozdmr/tarif-dunyasi/main/github_photos/8.png"/></a>
+<hr>
+<a href="(https://github.com/bugraozdmr/tarif-dunyasi/blob/main/github_photos/9.png" target="_blank"><img src="https://raw.githubusercontent.com/bugraozdmr/tarif-dunyasi/main/github_photos/9.png"/></a>
+<hr>
+
 
 ## Getting Started
 

@@ -49,3 +49,6 @@ CLIENT OLARDA KENDIN YAZICAN LOADINGLERI
 
 
 KATEGORILER ICIN PAGINATION
+
+EGER BULUNAMADI DIYORSA @types olcak typescript icin
+npm install --save-dev @types/js-cookie

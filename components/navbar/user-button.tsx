@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 
 import { Button as CustomButton } from "@/components/ui/button";
 import useAuthStore from "@/hooks/use-authenticated";
+import { useEffect } from "react";
 
 
 //? ZUSTAND ILE CONTEXT OLUSTURULDU ORDAN ALINIYOR AUTH
@@ -23,13 +24,17 @@ import useAuthStore from "@/hooks/use-authenticated";
 export const UserButton = () => {
 
   // CONTEXT CEKILDI
-  const { isAuthenticated, setAuthenticated } = useAuthStore();
+  const { controlUser , isAuthenticated, setAuthenticated } = useAuthStore();
 
   const user = useCurrentUser();
 
   const router = useRouter();
 
-
+  useEffect(() => {
+    // eger oncesinde baska resimli hesapla girdiysen sorun olur
+    // ama ustune tıklayınca gidiyor
+    controlUser();
+  },[controlUser]);
 
   if (!isAuthenticated) {
     return (
