@@ -4,6 +4,7 @@ import getRecipeCount from "@/actions/recipe/get-recipe-count";
 import getRecipes from "@/actions/recipe/get-recipes";
 import Loading from "@/app/loading";
 import { Billboards } from "@/billboardData";
+import { Categories } from "@/categoryData";
 import AddRecipeButton from "@/components/add-recipe-button";
 import { Billboard } from "@/components/billboard";
 import { RecipeList } from "@/components/recipe-list";
@@ -36,6 +37,8 @@ const CategoryPage: React.FC<ProductPageProps> = ({ params }) => {
     label: billboardC?.label as string,
     imageUrl: billboardC?.imageUrl as string,
   };
+
+  const category = Categories.find((c) => c.slug === params.categorySlug);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -81,7 +84,7 @@ const CategoryPage: React.FC<ProductPageProps> = ({ params }) => {
             {loading ? (
               <Loading />
             ) : (
-              <RecipeList title="Son eklenen tarifler" items={recipes} />
+              <RecipeList title={`${category?.name} kategorisindeki tarifler`} items={recipes} />
             )}
             {pageCount && pageCount !== 0 && pageCount !== 1 && (
               <div className="flex justify-center">

@@ -20,8 +20,8 @@ export const RecipesClient : React.FC<RecipesClientProps> = ({
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Colors (${data.length})`}
-          description="Manage colors for your store"
+          title={`Tarifler (${data.length})`}
+          description="Tariflerinizi yönetin"
         />
       </div>
       <Separator />
