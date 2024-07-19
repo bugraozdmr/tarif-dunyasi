@@ -121,7 +121,7 @@ const SettingsPage = () => {
                           <Input
                             {...field}
                             placeholder="example@mail.com"
-                            disabled={isPending}
+                            disabled={true}
                             type="email"
                           />
                         </FormControl>

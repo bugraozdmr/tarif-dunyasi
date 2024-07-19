@@ -10,10 +10,14 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { UseCurrentRole } from "@/hooks/use-current-role";
+import useAuthStore from "@/hooks/use-authenticated";
 
 export const CommentCard: React.FC<{ data: Comment,slug:string }> = ({ data,slug }) => {
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);
+
+  // CONTEXT CEKILDI
+  const { isAuthenticated, setAuthenticated } = useAuthStore();
 
   const router = useRouter();
 
@@ -73,7 +77,7 @@ export const CommentCard: React.FC<{ data: Comment,slug:string }> = ({ data,slug
             </p>
           </div>
         </CardFooter>
-        {role === 'ADMIN' && (
+        {role === 'ADMIN' && isAuthenticated && (
           <div className="w-full flex justify-center">
           <Button
           className="w-full"

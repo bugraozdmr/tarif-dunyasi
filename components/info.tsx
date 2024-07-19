@@ -28,6 +28,7 @@ import { toast } from "sonner";
 import { AlertModal } from "./modals/alert-modal";
 import { UseCurrentRole } from "@/hooks/use-current-role";
 import ClientLoading from "./client-loading";
+import useAuthStore from "@/hooks/use-authenticated";
 
 interface InfoProps {
   data: Recipe;
@@ -47,6 +48,9 @@ export const Info: React.FC<InfoProps> = ({
   const [loading,setLoading] = useState(false);
 
   const router = useRouter();
+
+  // CONTEXT CEKILDI
+  const { isAuthenticated, setAuthenticated } = useAuthStore();
 
   // KONTROL AMACLI DESC
   const pathname = usePathname();
@@ -98,7 +102,7 @@ export const Info: React.FC<InfoProps> = ({
         loading={pending}
       />
 
-      {pathname === `/${data.slug}` && role === 'ADMIN' && (
+      {pathname === `/${data.slug}` && isAuthenticated && role === 'ADMIN' && (
         <div className="flex flex-row justify-center mx-5 mb-8">
           <Button
             variant="destructive"
@@ -203,7 +207,7 @@ export const Info: React.FC<InfoProps> = ({
             <h3 className="font-semibold text-black text-2xl mb-2">
               Yorumlar ({comment_count})
             </h3>
-            {user && (
+            {user && isAuthenticated && (
               <>
                 <CommentForm recipeId={data.id} />
               </>

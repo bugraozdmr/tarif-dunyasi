@@ -1,3 +1,4 @@
+"use client";
 import { logout } from "@/actions/signout";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import {
@@ -11,22 +12,26 @@ import { Avatar } from "@nextui-org/avatar";
 import { LogOut, User } from "lucide-react";
 
 import UserImage from "@/public/user.png";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { Button as CustomButton } from "@/components/ui/button";
-import { useState } from "react";
-import { revalidatePath } from "next/cache";
+import useAuthStore from "@/hooks/use-authenticated";
 
+
+//? ZUSTAND ILE CONTEXT OLUSTURULDU ORDAN ALINIYOR AUTH
 
 export const UserButton = () => {
+
+  // CONTEXT CEKILDI
+  const { isAuthenticated, setAuthenticated } = useAuthStore();
+
   const user = useCurrentUser();
 
   const router = useRouter();
 
-  const [flag, setFlag] = useState(false); 
 
 
-  if (!user || flag === true) {
+  if (!isAuthenticated) {
     return (
         <CustomButton onClick={() => router.push("/auth/login")}>
           <User className="mr-2 h-4 w-4" /> Giriş Yap
@@ -34,15 +39,26 @@ export const UserButton = () => {
       );
   }
 
-  const handleLogout = () => {
-    logout();
-    setFlag(true);
-    router.push("/");
+
+  //! BOYLE ISE ASYNC IZIN VAR DENMISTI
+  const handleLogout = async () => {
+    try {
+      const result = await logout();
+  
+      if (result.success) {
+        setAuthenticated(false);
+        router.push("/");
+      } else {
+        console.error("Bir hata oluştu.");
+      }
+    } catch (error) {
+      console.error("Logout işlemi sırasında bir hata oluştu:", error);
+    }
   }
 
   return (
     <>
-    {!flag && (
+    {isAuthenticated && (
         <Dropdown placement="bottom-end">
         <DropdownTrigger>
           <Avatar

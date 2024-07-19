@@ -14,7 +14,7 @@ const AddRecipeButton = () => {
   return (
     <>
       {loading && <ClientLoading />}
-      <div className="flex justify-center items-center h-full w-full mt-3">
+      <div className="flex justify-center items-center h-full w-full mt-5">
         <Button
           className="w-full h-12 flex justify-center items-center mx-16 leading-relaxed"
           endContent={<PiBowlSteamFill size={25} />}

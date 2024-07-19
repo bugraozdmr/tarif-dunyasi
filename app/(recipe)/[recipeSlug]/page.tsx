@@ -28,7 +28,6 @@ const CategoryRecipePage: React.FC<RecipePageProps> = ({ params }) => {
   const [comment_count,setCommentCount] = useState<number>();
   const [comments,setComments] = useState<Comment[]>();
 
-
   useEffect(() => {
     const fetchRecipes = async () => {
       const recipe = await getRecipe(params.recipeSlug);

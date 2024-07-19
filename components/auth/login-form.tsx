@@ -22,6 +22,7 @@ import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { login } from "@/actions/login";
 import Link from "next/link";
+import useAuthStore from "@/hooks/use-authenticated";
 
 export function LoginForm() {
   const searchParams = useSearchParams();
@@ -36,6 +37,9 @@ export function LoginForm() {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+
+  const { isAuthenticated, setAuthenticated } = useAuthStore();
+
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -53,6 +57,9 @@ export function LoginForm() {
     startTransition(() => {
       login(values, callbackUrl)
         .then((data: any) => {
+          if(!data){
+            setAuthenticated(true);
+          }
           if (data?.error) {
             form.reset();
             setError(data && data.error);
@@ -62,6 +69,7 @@ export function LoginForm() {
             setSuccess(data && data.success);
           }
           if (data?.twoFactor) {
+            console.log(4);
             setShowTwoFactor(true);
           }
         });
