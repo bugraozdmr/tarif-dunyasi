@@ -16,7 +16,7 @@ const SearchInputField = () => {
 
   const router = useRouter();
     return ( 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="w-[6rem]" >
           <Input
           value={filter as string}
           onChange={(e) => setFilter(e.target.value)}

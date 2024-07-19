@@ -75,7 +75,7 @@ export default function NavbarC() {
                 base: "gap-4",
               }}
             >
-              {categories.map((category,index) => {
+              {categories.map((category, index) => {
                 const IconComponent = getIconComponent(category.icon);
                 return (
                   <DropdownItem

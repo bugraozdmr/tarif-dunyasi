@@ -23,7 +23,7 @@ const AddRecipeButton = () => {
             router.push("/tarif/yeni");
           }}
         >
-          <p className="text-lg md:text-2xl lg:text-3xl font-serif text-center text-gray-800 leading-relaxed">
+          <p className="text-md md:text-2xl lg:text-3xl sm:text-sm font-serif text-center text-gray-800 leading-relaxed">
             Tarif mi paylaşmak istiyorsun?
           </p>
         </Button>
