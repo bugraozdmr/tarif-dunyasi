@@ -1,6 +1,19 @@
 ## TARIF DUNYASI
 It's basically the site that you can learn how to cook better with other peoples recipe.
 
+<a href="(https://github.com/bugraozdmr/tarif-dunyasi/blob/main/github_photos/1.png" target="_blank"><img src="https://raw.githubusercontent.com/bugraozdmr/tarif-dunyasi/main/github_photos/1.png"/></a>
+<hr>
+<a href="(https://github.com/bugraozdmr/tarif-dunyasi/blob/main/github_photos/2.png" target="_blank"><img src="https://raw.githubusercontent.com/bugraozdmr/tarif-dunyasi/main/github_photos/2.png"/></a>
+<hr>
+<a href="(https://github.com/bugraozdmr/tarif-dunyasi/blob/main/github_photos/3.png" target="_blank"><img src="https://raw.githubusercontent.com/bugraozdmr/tarif-dunyasi/main/github_photos/3.png"/></a>
+<hr>
+<a href="(https://github.com/bugraozdmr/tarif-dunyasi/blob/main/github_photos/4.png" target="_blank"><img src="https://raw.githubusercontent.com/bugraozdmr/tarif-dunyasi/main/github_photos/4.png"/></a>
+<hr>
+<a href="(https://github.com/bugraozdmr/tarif-dunyasi/blob/main/github_photos/5.png" target="_blank"><img src="https://raw.githubusercontent.com/bugraozdmr/tarif-dunyasi/main/github_photos/5.png"/></a>
+<hr>
+<a href="(https://github.com/bugraozdmr/tarif-dunyasi/blob/main/github_photos/6.png" target="_blank"><img src="https://raw.githubusercontent.com/bugraozdmr/tarif-dunyasi/main/github_photos/6.png"/></a>
+<hr>
+
 ## Getting Started
 
 First, your gonna have to add env values:
