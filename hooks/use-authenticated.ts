@@ -19,7 +19,7 @@ const useAuthStore = create<AuthState>((set) => ({
     //! COOKIE KONTROL ILE USER CONTROL
     try {
       const cookiess = await getCookies(); // Await the async function
-      const sessionCookie = cookiess.find(cookie => cookie.name === 'authjs.session-token');
+      const sessionCookie = cookiess.find(cookie => cookie.name === '__Secure-authjs.session-token');
 
 
       const isAuthenticated = !!sessionCookie; 
