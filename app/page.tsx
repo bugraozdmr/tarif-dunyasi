@@ -11,6 +11,8 @@ import { Recipe } from "@/types";
 import Loading from "./loading";
 import getRecipeCount from "@/actions/recipe/get-recipe-count";
 import { Pagination } from "@nextui-org/react";
+import { cookies } from "next/headers";
+import getCookies from "@/helpers/get-cookies";
 
 // tip düzeltmesi
 const nullToUndefined = (value: string | null): string | undefined => {

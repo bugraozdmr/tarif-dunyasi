@@ -6,13 +6,10 @@ import { FaGithub } from "react-icons/fa";
 import { Button } from "../ui/button";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { useSearchParams } from "next/navigation";
-import useAuthStore from "@/hooks/use-authenticated";
 
 export const Social = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
-
-  const { isAuthenticated, setAuthenticated } = useAuthStore();
 
   const onClick = async (provider: "google" | "github") => {
     try {
