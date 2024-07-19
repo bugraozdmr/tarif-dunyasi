@@ -14,7 +14,10 @@ const useAuthStore = create<AuthState>((set) => ({
   isAuthenticated: false,
   setAuthenticated: (auth) => set({ isAuthenticated: auth }),
   controlUser: () => {
-    const sessionCookie = Cookies.get('__session');
+    //__Secure-authjs.session-token
+    //! COOKIE KONTROL ILE USER CONTROL
+    const sessionCookie = Cookies.get();
+    console.log(sessionCookie)
     const isAuthenticated = !!sessionCookie;
     set({ isAuthenticated });
   }
